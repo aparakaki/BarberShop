@@ -1,93 +1,29 @@
 module.exports = function (sequelize, DataTypes) {
-    var Schedule = sequelize.define("Schedule", {
+    var Appointment = sequelize.define("Appointment", {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         date: {
             type: DataTypes.DATEONLY,
             allowNull: false
         },
-        morningTime1: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
+        start: {
+            type: DataTypes.STRING(5),
+            allowNull: false
         },
-        morningTime2: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
+        end: {
+            type: DataTypes.STRING(5),
+            allowNull: false
         },
-        morningTime3: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        morningTime4: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        morningTime5: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        morningTime6: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        morningTime7: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        morningTime8: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        afternoonTime1: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        afternoonTime2: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        afternoonTime3: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        afternoonTime4: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        afternoonTime5: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        afternoonTime6: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        afternoonTime7: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        },
-        afternoonTime8: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
+        time: {
+            type: DataTypes.TINYINT
         }
     },
         {
             timestamps: false
-        })
+        });
 
-    return Schedule;
-}
+    return Appointment;
+} 
