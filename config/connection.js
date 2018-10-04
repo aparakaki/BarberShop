@@ -16,9 +16,7 @@ if(process.env.JAWSDB_URL){
   // enter correct db
   database: "burgers_db"
   })
-};
-
-  
+};  
 
 // Make connection.
 connection.connect(function(err) {
