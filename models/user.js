@@ -29,11 +29,15 @@ module.exports = function (sequelize, DataTypes) {
         {
             timestamps: false
         });
-    User.associate = function (models) {
-        User.belongsToMany(models.Service, {
-            through: models.Appointment
-        });
-    }
+    // User.associate = function (models) {
+    //     User.belongsToMany(models.Service, {
+    //         through: models.Appointment,
+    //         foreignKey: {
+    //             name: "serviceId",
+    //             unique: false
+    //         }
+    //     });
+    // }
 
     return User;
 }
