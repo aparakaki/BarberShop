@@ -29,6 +29,11 @@ module.exports = function (sequelize, DataTypes) {
         {
             timestamps: false
         });
+    User.associate = function (models) {
+        User.belongsToMany(models.Service, {
+            through: models.Appointment
+        });
+    }
 
     return User;
 }

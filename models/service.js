@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
         });
     Service.associate = function (models) {
         Service.belongsToMany(models.User, {
-            through: "customerProfile"
+            through: models.Appointment
         });
     }
 
