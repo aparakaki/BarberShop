@@ -1,35 +1,59 @@
-var services = [
-    {style: "fade",
-    time: 20,
-    price: 25,
-    id: 1},
-    {style: "buzz cut",
-    time: 30,
-    price: 35,
-    id: 2},
-]
 
-for (var i=0; i<services.length; i++){
-    $(".accordion").append(`
-    <div class="card">
-    <div class="card-header" id="headingOne">
-        <h5 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${[i]}"
-                aria-expanded="true" aria-controls="collapse${[i]}">
-                ${services[i].style}
-            </button>
-        </h5>
-    </div>
+$(document).ready(function () {
+var serviceSelected;
+var totalTime = 0;
+var totalPrice = 0;
 
-    <div id="collapse${[i]}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-        <div class="card-body">
-          Estimated Time: ${services[i].time} <br>
-          Price: $${services[i].price}
-          
+    getServices();
+
+
+    $(document).on("click", ".service-select" , function(){
+        var thisid= $(this).data("id")
+
+        $.get("/api/services", function(data){
+            for(var i=0; i<data.length; i++){
+                if(thisid === data[i].id){
+                  serviceSelected = data[i];
+                  totalTime += serviceSelected.time  
+                }
+            }
+            var selected = $("<div>").text(serviceSelected.style + " $" + serviceSelected.price + " " + serviceSelected.time + " min")
+            $(".selected").append(selected);
+        })
+        
+    })
+
+
+    function getServices() {
+        $.get("/api/services", function (data) {
+
+            for (var i = 0; i < data.length; i++) {
+                $(".accordion").append(`
+        <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${[i]}"
+                    aria-expanded="true" aria-controls="collapse${[i]}">
+                    ${data[i].style}
+                </button>
+            </h5>
+        </div>
+    
+        <div id="collapse${[i]}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+            ${data[i].description}<br>  
+            Estimated Time: ${data[i].time} min <br>
+              Price: $${data[i].price} <br>
+              <button class = "btn btn-info service-select" data-id = "${data[i].id}"> Select </button>
+              
+            </div>
         </div>
     </div>
-</div>
-    
-    
-    `)
-}
+         `)
+            };
+        });
+
+
+    };
+
+});

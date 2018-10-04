@@ -9,6 +9,9 @@ module.exports = function (sequelize, DataTypes) {
         },
         price: {
             type: DataTypes.DECIMAL
+        },
+        description: {
+            type: DataTypes.TEXT
         }
     },
         {
