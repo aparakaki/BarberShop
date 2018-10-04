@@ -14,15 +14,28 @@ var totalPrice = 0;
             for(var i=0; i<data.length; i++){
                 if(thisid === data[i].id){
                   serviceSelected = data[i];
-                  totalTime += serviceSelected.time  
+                  totalTime += serviceSelected.time
+                  totalPrice += parseInt(serviceSelected.price)  
                 }
             }
             var selected = $("<div>").text(serviceSelected.style + " $" + serviceSelected.price + " " + serviceSelected.time + " min")
+            selected.attr("id", thisid)
+            selected.append(`
+            <button class = "btn btn-danger remove-service" data-id = ${thisid}> Remove </button>
+            `)
             $(".selected").append(selected);
-        })
+            $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
+        });
+        
+    });
+
+
+    $(document).on("click", ".remove-service", function(){
+        var buttonId = $(this).data("id")
+        $("#" + buttonId + " ").remove();
+
         
     })
-
 
     function getServices() {
         $.get("/api/services", function (data) {
