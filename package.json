@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/aparakaki/Project2/issues"
   },
-  "homepage": "https://github.com/aparakaki/Project2#readme"
+  "homepage": "https://github.com/aparakaki/Project2#readme",
+  "dependencies": {
+    "sequelize": "^4.39.0"
+  }
 }
