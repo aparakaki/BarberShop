@@ -19,6 +19,14 @@ module.exports = function (sequelize, DataTypes) {
         },
         time: {
             type: DataTypes.TINYINT
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        serviceId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     },
         {
