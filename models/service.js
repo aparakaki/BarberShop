@@ -14,8 +14,8 @@ module.exports = function (sequelize, DataTypes) {
         {
             timestamps: false
         });
-    Post.associate = function (models) {
-        Post.belongsToMany(models.User, {
+    Service.associate = function (models) {
+        Service.belongsToMany(models.User, {
             through: "customerProfile"
         });
     }
