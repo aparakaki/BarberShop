@@ -1,6 +1,9 @@
 
 $(document).ready(function(){
     
+    var service;                //service(s) chosen
+    var duration;               //duration of service(s)
+    var timesArray = [];        //array that will hold the time slots available
 
     $(".day").click( function(){
         $(".morning").empty();
@@ -11,18 +14,18 @@ $(document).ready(function(){
         var inputDate;
 
 
-        var timesArray = [];
 
         $.ajax("/api/calendar", {
             type: "GET",
             data: inputDate
         }).then(function (data) {
             timesArray = getTimeSlots(sortTimeData(data));
-            // console.log(timesArray);
+            console.log(timesArray);
 
             for (let i = 0; i < timesArray.length; i++) {
                 let temp = convertTime(timesArray[i])
-                let timeBtn = $("<button>").addClass("btn btn-info").text(temp);
+                let timeBtn = $("<button>").addClass("btn btn-info time-btn")
+                                .attr("data-id", i).text(temp);
                 let btnDiv = $("<div>").append(timeBtn);
                 if (temp.slice(-2) === "am") {
                     $(".morning").append(btnDiv);
@@ -34,6 +37,13 @@ $(document).ready(function(){
         });
 
     });
+
+    $(document).on("click", ".time-btn", function(event) {
+        event.preventDefault();
+        var index = $(this).data("id");
+        var apptTime = timesArray[index];
+    })
+
 
 
     //sorts the array of appointments in places them in the correct order by time
@@ -107,8 +117,9 @@ $(document).ready(function(){
         }
         return availTimes;
     };
-
-    function convertTime(inTime) {                  //converts 24-hr format to am/pm format
+    
+    //converts 24-hr format to am/pm format
+    function convertTime(inTime) {                 
         var hourVar = parseInt(inTime.slice(0, 3));
         var minVar = inTime.slice(3);
       
