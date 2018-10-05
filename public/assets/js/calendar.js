@@ -4,6 +4,8 @@ $(document).ready(function(){
     var data = sessionStorage.getItem("serviceSelected");
     console.log(data);
 
+
+
     for (var i=1; i<32; i++){
         var day = $("<li>").text(i);
         day.addClass("day")
@@ -14,8 +16,6 @@ $(document).ready(function(){
         }
         
         $(".days").append(day);
-    var data = sessionStorage.getItem('serviceSelected');
-    console.log(data);
     
 };
 var service;                //service(s) chosen
