@@ -6,9 +6,17 @@
  }
  .landing-page{
     background: url(../img/landingpage.gif);
-    background-size: 100% 100%;
+	background-size: cover;
+	height: 100vh;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 0;
+   
    
  }
+
+
 
  /* sign up block */
 
@@ -31,7 +39,7 @@
 	background:rgba(0,0,0,0);
 }
 .login-html .sign-in-htm,
-.login-html .sign-up-htm{
+.login-html .sign-up-htm -login-up-htm{
 	top:0;
 	left:0;
 	right:0;
