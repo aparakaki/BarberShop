@@ -23,6 +23,10 @@ module.exports = function (sequelize, DataTypes) {
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        serviceId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     },
         {

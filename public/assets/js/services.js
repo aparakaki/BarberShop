@@ -25,17 +25,45 @@ var totalPrice = 0;
             `)
             $(".selected").append(selected);
             $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
+            var done = $("<a href = '/calendar' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
+            $(".done-selecting").append(done);
+
         });
         
+
     });
+
+    $(document).on("click", ".done", function(){
+        sessionStorage.setItem("serviceSelected", serviceSelected);
+        sessionStorage.setItem("servicePrice", totalPrice);
+        sessionStorage.setItem("serviceTime", totalTime);
+
+    })
 
 
     $(document).on("click", ".remove-service", function(){
+        var time;
+        var price;
         var buttonId = $(this).data("id")
         $("#" + buttonId + " ").remove();
 
+        $.get("/api/services", function(data){
+            for(var i=0; i<data.length; i++){
+                if(buttonId === data[i].id){
+                    time = data[i].time;
+                    price = data[i].price;
+                }
+            }
+            totalTime -= parseInt(time);
+        totalPrice -= parseInt(price);
+        $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
+
+        });
+
         
-    })
+
+        
+    });
 
     function getServices() {
         $.get("/api/services", function (data) {

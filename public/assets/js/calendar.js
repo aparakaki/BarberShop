@@ -1,28 +1,55 @@
 
 $(document).ready(function(){
-    
 
-    $(".day").click( function(){
+
+
+    for (var i=1; i<32; i++){
+        var day = $("<li>").text(i);
+        day.addClass("day")
+        if( i < 10){
+            day.attr("id", "2018-10-0" + i );
+        } else{
+            day.attr("id", "2018-10-" + i );
+        }
+        
+        $(".days").append(day);   
+    };
+
+    var data = sessionStorage.getItem('serviceSelected');
+    var totalPrice = sessionStorage.getItem("servicePrice");
+    var totalTime = sessionStorage.getItem("serviceTime");
+    var uId = sessionStorage.getItem("userId");
+    // console.log(data);
+    var timesArray = [];        //array that will hold the time slots available
+    var chosenDate;
+    var apptTime;
+
+
+    $(document).on("click", ".day", function(){
+        chosenDate = $(this).attr("id");
+        //make get request for time slots and post the ones that apply 
+        //need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
+        timesArray = [];
         $(".morning").empty();
         $(".afternoon").empty();
+        
+        console.log(chosenDate);
 
-        //make get request for time slots and post the ones that apply 
-        // need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
-        var inputDate;
-
-
-        var timesArray = [];
-
-        $.ajax("/api/calendar", {
+        $.ajax("/api/schedule",{
             type: "GET",
-            data: inputDate
-        }).then(function (data) {
+            data: chosenDate
+        }).then( function (data) {
+            timesArray = [];
+            console.log(data);
             timesArray = getTimeSlots(sortTimeData(data));
-            // console.log(timesArray);
+            console.log(timesArray);
 
             for (let i = 0; i < timesArray.length; i++) {
                 let temp = convertTime(timesArray[i])
-                let timeBtn = $("<button>").addClass("btn btn-info").text(temp);
+                let timeBtn = $("<button>").addClass("btn btn-info time-btn")
+                                .attr("data-id", i).text(temp)
+                                .attr("data-toggle", "modal")
+                                .attr("data-target", "#scheduleModal");
                 let btnDiv = $("<div>").append(timeBtn);
                 if (temp.slice(-2) === "am") {
                     $(".morning").append(btnDiv);
@@ -32,8 +59,40 @@ $(document).ready(function(){
                 }
             }
         });
-
     });
+
+
+    $(document).on("click", ".time-btn", function(event) {
+        event.preventDefault();
+        var index = $(this).data("id");
+        apptTime = timesArray[index];
+        $(".modal-body").append(`
+            Date: ${chosenDate} <br>
+            Time: ${apptTime}
+        `)
+    })
+
+    $(document).on("click", "#book-apt", function(event) {
+        event.preventDefault();
+        var temp = new Date('1970/01/01 ' + apptTime);
+        var endTime = new Date(temp.getTime() + (totalTime * 60 * 1000));
+        endTime = endTime.toString().split(" ")[4].substring(0, 5)
+    
+        var apptObj = {
+            date: chosenDate, 
+            start: apptTime, 
+            end:endTime, 
+            UserId: uId,
+        }
+        $.post("/api/schedule", apptObj, function(data) {
+            
+        })
+    });
+    
+
+
+    
+
 
 
     //sorts the array of appointments in places them in the correct order by time
@@ -67,8 +126,6 @@ $(document).ready(function(){
     //finds the free time slots between each appt. 
     //and calculates the starting times available depending on the service duration
     function getTimeSlots(appointments) {
-
-        var serviceTime = 30;   //duration of service in minutes
         var dateEvents = appointments.map(function (event) {
             return {
               start: new Date('1970-01-01 ' + event.start),
@@ -76,7 +133,7 @@ $(document).ready(function(){
             };
           });
           
-          var requiredGap = serviceTime * 60 * 1000;
+          var requiredGap = totalTime * 60 * 1000;
           var prev = dateEvents[0];
           var firstGap = null;
           
@@ -107,8 +164,9 @@ $(document).ready(function(){
         }
         return availTimes;
     };
-
-    function convertTime(inTime) {                  //converts 24-hr format to am/pm format
+    
+    //converts 24-hr format to am/pm format
+    function convertTime(inTime) {                 
         var hourVar = parseInt(inTime.slice(0, 3));
         var minVar = inTime.slice(3);
       

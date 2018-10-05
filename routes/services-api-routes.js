@@ -7,15 +7,4 @@ module.exports = function(app){
             res.json(data);
         })
     });
-
-    app.get("/api/calendar", function(req, res){
-        db.Appointment.findAll({
-            where: {
-                date: "2018-10-04"
-            }
-        }).then(function(data) {
-            // console.log(data);
-            res.json(data);
-        })
-    }) 
 }
