@@ -20,9 +20,10 @@ $(document).ready(function(){
     var service;                //service(s) chosen
     var duration;               //duration of service(s)
     var timesArray = [];        //array that will hold the time slots available
+    var chosenDate;
 
     $(document).on("click", ".day", function(){
-        var chosenDate = $(this).attr("id");
+        chosenDate = $(this).attr("id");
         //make get request for time slots and post the ones that apply 
         //need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
         timesArray = [];
@@ -43,7 +44,9 @@ $(document).ready(function(){
             for (let i = 0; i < timesArray.length; i++) {
                 let temp = convertTime(timesArray[i])
                 let timeBtn = $("<button>").addClass("btn btn-info time-btn")
-                                .attr("data-id", i).text(temp);
+                                .attr("data-id", i).text(temp)
+                                .attr("data-toggle", "modal")
+                                .attr("data-target", "#scheduleModal");
                 let btnDiv = $("<div>").append(timeBtn);
                 if (temp.slice(-2) === "am") {
                     $(".morning").append(btnDiv);
@@ -59,6 +62,10 @@ $(document).ready(function(){
         event.preventDefault();
         var index = $(this).data("id");
         var apptTime = timesArray[index];
+        $(".modal-body").append(`
+            Date: ${chosenDate} <br>
+            Time: ${apptTime}
+        `)
     })
 
 
