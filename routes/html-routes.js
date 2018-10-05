@@ -13,9 +13,7 @@ module.exports = function (app) {
                     token: req.cookie.token
                 }
             }).then(function (token) {
-                if (token === null) {
-                }
-                else {
+                if (token !== null) {
                     req.session.user = user[i];
                     res.redirect("/services");
                 }
@@ -24,8 +22,6 @@ module.exports = function (app) {
         else {
             res.sendFile(path.join(__dirname, "../index.html"));
         }
-
-        res.sendFile(path.join(__dirname, "../index.html"));
     });
 
     app.get("/services", function (req, res) {
@@ -56,13 +52,11 @@ module.exports = function (app) {
     app.post("/login", function (req, res) {
         db.User.findOne({
             where: {
-                name: req.body.username,
+                username: req.body.username,
                 password: req.body.password
             }
         }).then(function (token) {
-            if (token === null) {
-            }
-            else {
+            if (token !== null) {
                 var token = "t" + Math.random();
                 db.User.update({
                     token: token,
@@ -71,7 +65,7 @@ module.exports = function (app) {
                         where: {
                             name: req.body.username
                         }
-                    }).then(function (dbTodo){});
+                    }).then(function (dbTodo) { });
 
                 res.cookie("token", token);
 
@@ -84,6 +78,16 @@ module.exports = function (app) {
             }
             res.send("account not found");
         });
+    });
+
+    app.post("/createLogin", function (req, res) {
+        db.User.create({
+            name: req.body.name,
+            username: req.body.username,
+            password: req.body.password
+        }).then(function (user) {
+            res.redirect("/");
+        })
     });
 
 }
