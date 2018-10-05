@@ -25,21 +25,21 @@ module.exports = function (app) {
     });
 
     app.get("/services", function (req, res) {
-        if (req.session.user) {
+        // if (req.session.user) {
             res.sendFile(path.join(__dirname, "../public/services.html"));
-        }
-        else {
-            res.redirect("/");
-        }
+        // }
+        // else {
+            // res.redirect("/");
+        // }
     });
 
     app.get("/calendar", function (req, res) {
-        if (req.session.user) {
+        // if (req.session.user) {
             res.sendFile(path.join(__dirname, "../public/calendar.html"))
-        }
-        else {
-            res.redirect("/");
-        }
+        // }
+        // else {
+            // res.redirect("/");
+        // }
     });
 
     app.get("/logout", function (req, res) {
