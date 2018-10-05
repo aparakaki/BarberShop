@@ -24,6 +24,9 @@ module.exports = function (sequelize, DataTypes) {
         admin: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        token: {
+            type: DataTypes.STRING
         }
     },
         {
