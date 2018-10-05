@@ -1,8 +1,5 @@
 
 $(document).ready(function(){
-    
-    var data = sessionStorage.getItem("serviceSelected");
-    console.log(data);
 
     for (var i=1; i<32; i++){
         var day = $("<li>").text(i);
@@ -13,29 +10,31 @@ $(document).ready(function(){
             day.attr("id", "2018-10-" + i );
         }
         
-        $(".days").append(day);
+        $(".days").append(day);   
+    };
+
     var data = sessionStorage.getItem('serviceSelected');
-    console.log(data);
-    
-};
-var service;                //service(s) chosen
-var duration;               //duration of service(s)
-var timesArray = [];        //array that will hold the time slots available
+    // console.log(data);
+    var service;                //service(s) chosen
+    var duration;               //duration of service(s)
+    var timesArray = [];        //array that will hold the time slots available
 
     $(document).on("click", ".day", function(){
         var chosenDate = $(this).attr("id");
         //make get request for time slots and post the ones that apply 
         //need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
-    
+        timesArray = [];
         $(".morning").empty();
         $(".afternoon").empty();
         
+        console.log(chosenDate);
 
-
-        $.ajax("/api/calendar", {
+        $.ajax("/api/schedule",{
             type: "GET",
             data: chosenDate
-        }).then(function (data) {
+        }).then( function (data) {
+            timesArray = [];
+            console.log(data);
             timesArray = getTimeSlots(sortTimeData(data));
             console.log(timesArray);
 
@@ -52,7 +51,6 @@ var timesArray = [];        //array that will hold the time slots available
                 }
             }
         });
-
     });
 
     $(document).on("click", ".time-btn", function(event) {

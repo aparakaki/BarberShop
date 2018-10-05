@@ -2,11 +2,12 @@ var db = require("../models");
 
 
 module.exports = function(app){
-    app.get("/api/schedule/:id", function(req, res){
+    app.get("/api/schedule", function(req, res){
+        console.log(req.body);
         db.Appointment.findAll({
-             where: {date: req.params.id}
+             where: {date: req.body}
         }).then(function(data){
             res.json(data);
         })
-    })
+    });
 }
