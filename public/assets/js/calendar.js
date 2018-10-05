@@ -15,7 +15,8 @@ $(document).ready(function(){
         $(".days").append(day);   
     };
 
-    var data = sessionStorage.getItem('serviceSelected');
+    var selectService = JSON.parse(sessionStorage.getItem('serviceSelected'));
+    console.log(selectService);
     var totalPrice = sessionStorage.getItem("servicePrice");
     var totalTime = sessionStorage.getItem("serviceTime");
     var uId = sessionStorage.getItem("userId");
@@ -25,7 +26,8 @@ $(document).ready(function(){
     var apptTime;
 
 
-    $(document).on("click", ".day", function(){
+    $(document).on("click", ".day", function(event){
+        event.preventDefault();
         chosenDate = $(this).attr("id");
         //make get request for time slots and post the ones that apply 
         //need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
@@ -35,12 +37,9 @@ $(document).ready(function(){
         
         console.log(chosenDate);
 
-        $.ajax("/api/schedule",{
-            type: "GET",
-            data: chosenDate
-        }).then( function (data) {
+        $.get("/api/schedule/" + chosenDate,function (data) {
             timesArray = [];
-            console.log(data);
+            // console.log(data);
             timesArray = getTimeSlots(sortTimeData(data));
             console.log(timesArray);
 
@@ -66,7 +65,7 @@ $(document).ready(function(){
         event.preventDefault();
         var index = $(this).data("id");
         apptTime = timesArray[index];
-        $(".modal-body").append(`
+        $(".modal-body").html(`
             Date: ${chosenDate} <br>
             Time: ${apptTime}
         `)
@@ -77,19 +76,25 @@ $(document).ready(function(){
         var temp = new Date('1970/01/01 ' + apptTime);
         var endTime = new Date(temp.getTime() + (totalTime * 60 * 1000));
         endTime = endTime.toString().split(" ")[4].substring(0, 5)
+
     
         var apptObj = {
             date: chosenDate, 
             start: apptTime, 
             end:endTime, 
-            UserId: uId,
+            userId: 1 //uId
         }
         $.post("/api/schedule", apptObj, function(data) {
-            
+            console.log(data);
+            // $.post("/api/details", )
         })
     });
     
-
+    // function editTime(time) {
+    //     if(time[0] === "0") {
+    //         time = 
+    //     }
+    // }
 
     
 
@@ -99,13 +104,14 @@ $(document).ready(function(){
     function sortTimeData(appointments) {
         var empStart = "9:00"  //start time set by employee
         var empEnd = "17:00"   //end time set by employee
-        var startTime;
+        var startTime = empStart;
 
         //checks if there's an appointment at the very start of the shift
         for(let i = 0; i < appointments.length; i++) {
             if(appointments[i].start === empStart) {
                 startTime = new Date('1970/01/01 ' + empStart);
                 startTime = new Date(startTime.getTime() - 60000).toString().split(" ")[4].substring(0, 5);
+                console.log(startTime)
                 break;
             }
             else {
@@ -115,6 +121,8 @@ $(document).ready(function(){
         
         appointments.push({ start: startTime, end: startTime });
         appointments.push({ start: empEnd });
+
+        console.log(appointments);
 
         appointments.sort(function (a, b) {
             return new Date('1970/01/01 ' + a.start) - new Date('1970/01/01 ' + b.start);
