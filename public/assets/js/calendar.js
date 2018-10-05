@@ -1,21 +1,35 @@
 
 $(document).ready(function(){
     
+    var data = sessionStorage.getItem("serviceSelected");
+    console.log(data);
 
-    $(".day").click( function(){
+    for (var i=1; i<32; i++){
+        var day = $("<li>").text(i);
+        day.addClass("day")
+        if( i < 10){
+            day.attr("id", "2018-10-0" + i );
+        } else{
+            day.attr("id", "2018-10-" + i );
+        }
+        
+        $(".days").append(day);
+
+    };
+
+    $(document).on("click", ".day", function(){
+        var chosenDate = $(this).attr("id");
+
+    
         $(".morning").empty();
         $(".afternoon").empty();
-
-        //make get request for time slots and post the ones that apply 
-        // need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
-        var inputDate;
-
+        
 
         var timesArray = [];
 
         $.ajax("/api/calendar", {
             type: "GET",
-            data: inputDate
+            data: chosenDate
         }).then(function (data) {
             timesArray = getTimeSlots(sortTimeData(data));
             // console.log(timesArray);
