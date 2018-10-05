@@ -25,14 +25,10 @@ var totalPrice = 0;
             `)
             $(".selected").append(selected);
             $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
-            var done = $("<button class = 'btn btn-info done'>").text("See Avaliable Appointments");
+            var done = $("<a href = '/calendar' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
             $(".done-selecting").append(done);
 
         });
-
-        $.post("/send-data", function(data) {
-            console.log(data);
-        })
         
     });
 
@@ -40,8 +36,6 @@ var totalPrice = 0;
         sessionStorage.setItem("serviceSelected", serviceSelected);
         sessionStorage.setItem("servicePrice", totalPrice);
         sessionStorage.setItem("serviceTime", totalTime);
-        
-        //direct to calendar page 
 
     })
 

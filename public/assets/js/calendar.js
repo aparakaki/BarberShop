@@ -1,6 +1,8 @@
 
 $(document).ready(function(){
 
+
+
     for (var i=1; i<32; i++){
         var day = $("<li>").text(i);
         day.addClass("day")
