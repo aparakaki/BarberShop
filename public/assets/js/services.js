@@ -3,6 +3,7 @@ $(document).ready(function () {
 var serviceSelected = [];
 var totalTime = 0;
 var totalPrice = 0;
+var serviceDel;
 
     getServices();
 
@@ -34,6 +35,10 @@ var totalPrice = 0;
     });
 
     $(document).on("click", ".done", function(){
+<<<<<<< HEAD
+=======
+        
+>>>>>>> route-home
         sessionStorage.setItem("serviceSelected", JSON.stringify(serviceSelected));
         sessionStorage.setItem("servicePrice", totalPrice);
         sessionStorage.setItem("serviceTime", totalTime);
@@ -50,6 +55,7 @@ var totalPrice = 0;
         $.get("/api/services", function(data){
             for(var i=0; i<data.length; i++){
                 if(buttonId === data[i].id){
+                    serviceDel = data[i];
                     time = data[i].time;
                     price = data[i].price;
                 }
@@ -57,7 +63,10 @@ var totalPrice = 0;
             totalTime -= parseInt(time);
         totalPrice -= parseInt(price);
         $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
-
+        
+        var index = serviceSelected.indexOf(serviceDel);
+        serviceSelected.remove(index, 1);
+            
         });
 
         

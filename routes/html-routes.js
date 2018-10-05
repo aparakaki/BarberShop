@@ -42,6 +42,10 @@ module.exports = function (app) {
         // }
     });
 
+    app.get("/user-home", function(req, res){
+        res.sendFile(path.join(__dirname, "../public/user-home.html"))
+    })
+
     app.get("/logout", function (req, res) {
         res.clearCookie("token");
         req.session.destroy();

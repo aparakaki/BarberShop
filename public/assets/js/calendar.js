@@ -18,7 +18,9 @@ $(document).ready(function(){
     var selectService = JSON.parse(sessionStorage.getItem('serviceSelected'));
     console.log(selectService);
     var totalPrice = sessionStorage.getItem("servicePrice");
+    console.log(totalPrice);
     var totalTime = sessionStorage.getItem("serviceTime");
+    console.log(totalTime);
     var uId = sessionStorage.getItem("userId");
     // console.log(data);
     var timesArray = [];        //array that will hold the time slots available
