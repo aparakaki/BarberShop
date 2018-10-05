@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
-    
+    var data = sessionStorage.getItem('serviceSelected');
+    console.log(data);
     var service;                //service(s) chosen
     var duration;               //duration of service(s)
     var timesArray = [];        //array that will hold the time slots available
@@ -10,7 +11,7 @@ $(document).ready(function(){
         $(".afternoon").empty();
 
         //make get request for time slots and post the ones that apply 
-        // need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
+        //need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
         var inputDate;
 
 

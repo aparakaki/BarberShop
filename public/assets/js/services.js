@@ -25,7 +25,13 @@ var totalPrice = 0;
             `)
             $(".selected").append(selected);
             $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
+
+            sessionStorage.setItem("serviceSlected", serviceSelected);
         });
+
+        $.post("/send-data", function(data) {
+            console.log(data);
+        })
         
     });
 
