@@ -14,13 +14,17 @@ $(document).ready(function(){
     };
 
     var data = sessionStorage.getItem('serviceSelected');
+    var totalPrice = sessionStorage.getItem("servicePrice");
+    var totalTime = sessionStorage.getItem("serviceTime");
+    var uId = sessionStorage.getItem("userId");
     // console.log(data);
-    var service;                //service(s) chosen
-    var duration;               //duration of service(s)
     var timesArray = [];        //array that will hold the time slots available
+    var chosenDate;
+    var apptTime;
+
 
     $(document).on("click", ".day", function(){
-        var chosenDate = $(this).attr("id");
+        chosenDate = $(this).attr("id");
         //make get request for time slots and post the ones that apply 
         //need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
         timesArray = [];
@@ -53,11 +57,33 @@ $(document).ready(function(){
         });
     });
 
+
     $(document).on("click", ".time-btn", function(event) {
         event.preventDefault();
-        var index = $(this).data("id");
-        var apptTime = timesArray[index];
-    })
+        index = $(this).data("id");
+        apptTime = timesArray[index];
+    });
+
+    $(document).on("click", "#book-apt", function(event) {
+        event.preventDefault();
+        var temp = new Date('1970/01/01 ' + apptTime);
+        var endTime = new Date(temp.getTime() + (totalTime * 60 * 1000));
+        endTime = endTime.toString().split(" ")[4].substring(0, 5)
+    
+        var apptObj = {
+            date: chosenDate, 
+            start: apptTime, 
+            end:endTime, 
+            UserId: uId,
+        }
+        $.post("/api/schedule", apptObj, function(data) {
+            
+        })
+    });
+    
+
+
+    
 
 
 
@@ -92,8 +118,6 @@ $(document).ready(function(){
     //finds the free time slots between each appt. 
     //and calculates the starting times available depending on the service duration
     function getTimeSlots(appointments) {
-
-        var serviceTime = 30;   //duration of service in minutes
         var dateEvents = appointments.map(function (event) {
             return {
               start: new Date('1970-01-01 ' + event.start),
@@ -101,7 +125,7 @@ $(document).ready(function(){
             };
           });
           
-          var requiredGap = serviceTime * 60 * 1000;
+          var requiredGap = totalTime * 60 * 1000;
           var prev = dateEvents[0];
           var firstGap = null;
           

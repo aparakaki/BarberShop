@@ -10,4 +10,8 @@ module.exports = function(app){
             res.json(data);
         })
     });
+
+    app.post("/api/schedule", function(req, res) {
+        db.Appointment.create(req.body).then
+    })
 }

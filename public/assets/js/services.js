@@ -30,10 +30,6 @@ var totalPrice = 0;
 
         });
 
-        $.post("/send-data", function(data) {
-            console.log(data);
-        })
-        
     });
 
     $(document).on("click", ".done", function(){
