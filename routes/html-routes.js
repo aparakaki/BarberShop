@@ -9,7 +9,8 @@ module.exports = function(app){
     app.get("/services", function(req, res) {
         res.sendFile(path.join(__dirname, "../public/services.html"));
       }); 
+
     app.get("/calendar", function(req, res){
         res.sendFile(path.join(__dirname, "../public/calendar.html"))
-    }) 
+    });
 }
