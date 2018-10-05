@@ -16,8 +16,11 @@ $(document).ready(function(){
     };
 
     var data = sessionStorage.getItem('serviceSelected');
+    console.log(JSON.parse(data));
     var totalPrice = sessionStorage.getItem("servicePrice");
+    console.log(totalPrice);
     var totalTime = sessionStorage.getItem("serviceTime");
+    console.log(totalTime);
     var uId = sessionStorage.getItem("userId");
     // console.log(data);
     var timesArray = [];        //array that will hold the time slots available
@@ -82,10 +85,10 @@ $(document).ready(function(){
             date: chosenDate, 
             start: apptTime, 
             end:endTime, 
-            UserId: uId,
+            userId: 1 //uId,
         }
         $.post("/api/schedule", apptObj, function(data) {
-            
+            console.log(data);
         })
     });
     

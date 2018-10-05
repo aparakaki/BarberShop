@@ -12,6 +12,8 @@ module.exports = function(app){
     });
 
     app.post("/api/schedule", function(req, res) {
-        db.Appointment.create(req.body).then
+        db.Appointment.create(req.body).then(function(data){
+            res.json(data);
+        })
     })
 }
