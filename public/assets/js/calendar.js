@@ -14,29 +14,35 @@ $(document).ready(function(){
         }
         
         $(".days").append(day);
-
-    };
+    var data = sessionStorage.getItem('serviceSelected');
+    console.log(data);
+    
+};
+var service;                //service(s) chosen
+var duration;               //duration of service(s)
+var timesArray = [];        //array that will hold the time slots available
 
     $(document).on("click", ".day", function(){
         var chosenDate = $(this).attr("id");
-
+        //make get request for time slots and post the ones that apply 
+        //need to send with the selected date in the format YYYY-MM-DD HH:MM:SS use moment for this 
     
         $(".morning").empty();
         $(".afternoon").empty();
         
 
-        var timesArray = [];
 
         $.ajax("/api/calendar", {
             type: "GET",
             data: chosenDate
         }).then(function (data) {
             timesArray = getTimeSlots(sortTimeData(data));
-            // console.log(timesArray);
+            console.log(timesArray);
 
             for (let i = 0; i < timesArray.length; i++) {
                 let temp = convertTime(timesArray[i])
-                let timeBtn = $("<button>").addClass("btn btn-info").text(temp);
+                let timeBtn = $("<button>").addClass("btn btn-info time-btn")
+                                .attr("data-id", i).text(temp);
                 let btnDiv = $("<div>").append(timeBtn);
                 if (temp.slice(-2) === "am") {
                     $(".morning").append(btnDiv);
@@ -48,6 +54,13 @@ $(document).ready(function(){
         });
 
     });
+
+    $(document).on("click", ".time-btn", function(event) {
+        event.preventDefault();
+        var index = $(this).data("id");
+        var apptTime = timesArray[index];
+    })
+
 
 
     //sorts the array of appointments in places them in the correct order by time
@@ -121,8 +134,9 @@ $(document).ready(function(){
         }
         return availTimes;
     };
-
-    function convertTime(inTime) {                  //converts 24-hr format to am/pm format
+    
+    //converts 24-hr format to am/pm format
+    function convertTime(inTime) {                 
         var hourVar = parseInt(inTime.slice(0, 3));
         var minVar = inTime.slice(3);
       

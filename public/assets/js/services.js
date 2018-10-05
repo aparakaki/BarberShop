@@ -28,9 +28,11 @@ var totalPrice = 0;
             var done = $("<button class = 'btn btn-info done'>").text("See Avaliable Appointments");
             $(".done-selecting").append(done);
 
-            
-            
         });
+
+        $.post("/send-data", function(data) {
+            console.log(data);
+        })
         
     });
 
