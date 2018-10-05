@@ -30,6 +30,7 @@ var totalPrice = 0;
 
         });
         
+
     });
 
     $(document).on("click", ".done", function(){
