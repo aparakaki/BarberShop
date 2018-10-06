@@ -1,8 +1,9 @@
 
 $(document).ready(function () {
-var serviceSelected;
+var serviceSelected = [];
 var totalTime = 0;
 var totalPrice = 0;
+var serviceDel;
 
     getServices();
 
@@ -13,7 +14,7 @@ var totalPrice = 0;
         $.get("/api/services", function(data){
             for(var i=0; i<data.length; i++){
                 if(thisid === data[i].id){
-                  serviceSelected = data[i];
+                  serviceSelected.push(data[i]);
                   totalTime += serviceSelected.time
                   totalPrice += parseInt(serviceSelected.price)  
                 }
@@ -26,7 +27,7 @@ var totalPrice = 0;
             $(".selected").append(selected);
             $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
             var done = $("<a href = '/calendar' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
-            $(".done-selecting").append(done);
+            $(".done-selecting").html(done);
 
         });
         
@@ -34,7 +35,11 @@ var totalPrice = 0;
     });
 
     $(document).on("click", ".done", function(){
-        sessionStorage.setItem("serviceSelected", serviceSelected);
+<<<<<<< HEAD
+=======
+        
+>>>>>>> route-home
+        sessionStorage.setItem("serviceSelected", JSON.stringify(serviceSelected));
         sessionStorage.setItem("servicePrice", totalPrice);
         sessionStorage.setItem("serviceTime", totalTime);
 
@@ -50,6 +55,7 @@ var totalPrice = 0;
         $.get("/api/services", function(data){
             for(var i=0; i<data.length; i++){
                 if(buttonId === data[i].id){
+                    serviceDel = data[i];
                     time = data[i].time;
                     price = data[i].price;
                 }
@@ -57,7 +63,10 @@ var totalPrice = 0;
             totalTime -= parseInt(time);
         totalPrice -= parseInt(price);
         $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
-
+        
+        var index = serviceSelected.indexOf(serviceDel);
+        serviceSelected.remove(index, 1);
+            
         });
 
         
