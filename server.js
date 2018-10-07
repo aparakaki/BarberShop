@@ -4,8 +4,12 @@ var session = require("express-session");
 
 var app = express();
 var PORT = process.env.PORT || 8081;
-
+const cors = require('cors');
 var db = require("./models");
+
+// allowing cors, installed npm module
+
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -21,7 +25,7 @@ app.use(session({
 }));
 
 app.use(express.static("public"));
-
+// I have the server.js on when I tried this. I also tried installing a node module called cors and tried adding it into the server.js ... and got no luck
 
 require("./routes/services-api-routes.js")(app);
 require("./routes/schedule-api-routes.js")(app);
