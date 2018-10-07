@@ -5,21 +5,31 @@ var db = require("../models");
 module.exports = function (app) {
     app.get("/", function (req, res) {
         if (req.session.user) {
+            console.log("1");
+            var x = req.headers.cookie;
+            var y = x.slice(((x.indexOf("="))+1), (x.indexOf(";")));
+            console.log(y);
             res.redirect("/services");
         }
-        else if (req.cookie) {
-            db.User.findOne({
-                where: {
-                    token: req.cookie.token
-                }
-            }).then(function (token) {
-                if (token !== null) {
-                    req.session.user = user[i];
-                    res.redirect("/services");
-                }
-            });
-        }
+        // else if (req.headers.cookie) {
+        //     console.log("2");
+        //     console.log(req.headers.cookie);
+        //     db.User.findOne({
+        //         where: {
+        //             token: req.headers.cookie
+        //         }
+        //     }).then(function (token) {
+        //         if (token !== null) {
+        //             req.session.user = user[i];
+        //             res.redirect("/services");
+        //         }
+        //     });
+        // }
         else {
+            var x = req.headers.cookie;
+            var y = x.slice(((x.indexOf("="))+1), (x.indexOf(";")));
+            console.log(y);
+            console.log('3');
             res.sendFile(path.join(__dirname, "../index.html"));
         }
     });
@@ -63,11 +73,11 @@ module.exports = function (app) {
                 },
                     {
                         where: {
-                            name: req.body.username
+                            username: req.body.username
                         }
                     }).then(function (dbTodo) { });
 
-                res.cookie("token", token);
+                    res.cookie("token", token, {expires: new Date(Date.now() + 90000000)});
 
                 req.session.user = {
                     id: req.body.id,
