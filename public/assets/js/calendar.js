@@ -18,9 +18,9 @@ $(document).ready(function(){
     var selectService = JSON.parse(sessionStorage.getItem('serviceSelected'));
     console.log(selectService);
     var totalPrice = sessionStorage.getItem("servicePrice");
-    console.log(totalPrice);
+    // console.log(totalPrice);
     var totalTime = sessionStorage.getItem("serviceTime");
-    console.log(totalTime);
+    // console.log(totalTime);
     var uId = sessionStorage.getItem("userId");
     // console.log(data);
     var timesArray = [];        //array that will hold the time slots available
@@ -77,26 +77,26 @@ $(document).ready(function(){
         event.preventDefault();
         var temp = new Date('1970/01/01 ' + apptTime);
         var endTime = new Date(temp.getTime() + (totalTime * 60 * 1000));
-        endTime = endTime.toString().split(" ")[4].substring(0, 5)
-
+        endTime = editTime(endTime.toString().split(" ")[4].substring(0, 5));
+        startTime = editTime(apptTime);
     
         var apptObj = {
             date: chosenDate, 
-            start: apptTime, 
+            start: startTime, 
             end:endTime, 
             userId: 1 //uId
         }
         $.post("/api/schedule", apptObj, function(data) {
             console.log(data);
-            // $.post("/api/details", )
         })
     });
     
-    // function editTime(time) {
-    //     if(time[0] === "0") {
-    //         time = 
-    //     }
-    // }
+    function editTime(time) {
+        if(time[0] === "0") {
+            time = time.substring(1);
+        }
+        return time;
+    }
 
     
 
