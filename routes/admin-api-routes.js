@@ -2,8 +2,11 @@ var db = require("../models");
 
 
 module.exports = function(app){
-    app.get("/api/appointments", function(req, res){
+    app.get("/api/appointments/:complete", function(req, res){
         db.Appointment.findAll({
+            where: {
+                completed: req.params.complete
+            },
             include: [{
                     model: db.Service
             }],
