@@ -35,10 +35,7 @@ var serviceDel;
     });
 
     $(document).on("click", ".done", function(){
-<<<<<<< HEAD
-=======
         
->>>>>>> route-home
         sessionStorage.setItem("serviceSelected", JSON.stringify(serviceSelected));
         sessionStorage.setItem("servicePrice", totalPrice);
         sessionStorage.setItem("serviceTime", totalTime);

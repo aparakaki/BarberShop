@@ -24,15 +24,78 @@ module.exports = function (app) {
         }
     });
 
+   
+
     app.get("/services", function (req, res) {
         // if (req.session.user) {
-            res.sendFile(path.join(__dirname, "../public/services.html"));
+            res.sendFile(path.join(__dirname, "../public/admin/create-service.html"));
+        // }
+        // else {
+            // res.redirect("/");
+        // }
+    });
+    
+
+    // routes for admin
+    app.get("/adminHome", function (req, res) {
+        // if (req.session.user) {
+            res.sendFile(path.join(__dirname, "../public/admin/admin-home.html"));
         // }
         // else {
             // res.redirect("/");
         // }
     });
 
+    app.get("/adminCurrentAppt", function (req, res) {
+        // if (req.session.user) {
+            res.sendFile(path.join(__dirname, "../public/admin/current-appointments.html"));
+            
+        // }
+        // else {
+            // res.redirect("/");
+        // }
+    });
+
+    app.get("/adminCreateServices", function (req, res) {
+        // if (req.session.user) {
+            res.sendFile(path.join(__dirname, "../public/admin/create-service.html"));
+        // }
+        // else {
+            // res.redirect("/");
+        // }
+    });
+
+        // routes for user pages
+        //sending html indexes into its place
+        app.get("/userHome", function (req, res) {
+            // if (req.session.user) {
+                res.sendFile(path.join(__dirname, "../public/home-page/home-page.html"));
+            // }
+            // else {
+                // res.redirect("/");
+            // }
+        });
+
+        app.get("/userHistory", function (req, res) {
+            // if (req.session.user) {
+                res.sendFile(path.join(__dirname, "../public/home-page/history.html"));
+            // }
+            // else {
+                // res.redirect("/");
+            // }
+        });
+
+
+        app.get("/userUpcomingAppt", function (req, res) {
+            // if (req.session.user) {
+                res.sendFile(path.join(__dirname, "../public/home-page/upcoming-appt.html"));
+            // }
+            // else {
+                // res.redirect("/");
+            // }
+        });
+
+    //
     app.get("/calendar", function (req, res) {
         // if (req.session.user) {
             res.sendFile(path.join(__dirname, "../public/calendar.html"))
