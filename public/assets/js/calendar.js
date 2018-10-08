@@ -84,13 +84,33 @@ $(document).ready(function(){
             date: chosenDate, 
             start: apptTime, 
             end:endTime, 
-            userId: 1 //uId
-        }
+            UserId: 1 //uId
+        };
         $.post("/api/schedule", apptObj, function(data) {
-            console.log(data);
-            // $.post("/api/details", )
+            for (let i = 0; i < selectService.length; i++) {
+                var detailObj = {
+                    AppointmentId: data.id,
+                    ServiceId: selectService[i].id
+                };
+                $.post("/api/details", detailObj, function(data) {
+                    console.log(data);
+                });
+            }
         })
     });
+    
+    function postDetail(id) {
+        for (let i = 0; i < selectService.length; i++) {
+            var detailObj = {
+                AppointmentId: id,
+                ServiceId: selectService[i].id
+            };
+            $.post("/api/details", detailObj, function(data) {
+                console.log(data);
+            });
+        }
+        return;
+    }
     
     // function editTime(time) {
     //     if(time[0] === "0") {
@@ -104,7 +124,7 @@ $(document).ready(function(){
 
     //sorts the array of appointments in places them in the correct order by time
     function sortTimeData(appointments) {
-        var empStart = "9:00"  //start time set by employee
+        var empStart = "09:00"  //start time set by employee
         var empEnd = "17:00"   //end time set by employee
         var startTime = empStart;
 

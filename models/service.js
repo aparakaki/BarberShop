@@ -17,15 +17,17 @@ module.exports = function (sequelize, DataTypes) {
         {
             timestamps: false
         });
-    // Service.associate = function (models) {
-    //     Service.belongsToMany(models.User, {
-    //         through: models.Appointment,
-    //         foreignKey: {
-    //             name: "userId",
-    //             unique: false
-    //         }
-    //     });
-    // }
+
+        // Service.associate = function (models) {
+        //     Service.belongsToMany(models.Appointment, {
+        //         through: Detail
+        //         // foreignKey: {
+        //         //     name: "userId",
+        //         //     unique: false
+        //         // }
+        //     });
+        // }
+
 
     return Service;
 } 

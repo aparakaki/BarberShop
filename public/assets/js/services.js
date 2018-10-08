@@ -10,24 +10,25 @@ var serviceDel;
 
     $(document).on("click", ".service-select" , function(){
         var thisid= $(this).data("id")
-
+        
         $.get("/api/services", function(data){
             for(var i=0; i<data.length; i++){
                 if(thisid === data[i].id){
                   serviceSelected.push(data[i]);
-                  totalTime += serviceSelected.time
-                  totalPrice += parseInt(serviceSelected.price)  
+                  totalTime += data[i].time
+                  totalPrice += parseInt(data[i].price)  
+                  
+                  var selected = $("<div>").text(data[i].style + " $" + data[i].price + " " + data[i].time + " min")
+                  selected.attr("id", thisid)
+                  selected.append(`
+                  <button class = "btn btn-danger remove-service" data-id = ${thisid}> Remove </button>
+                  `)
+                  $(".selected").append(selected);
+                  $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
+                  var done = $("<a href = '/calendar' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
+                  $(".done-selecting").html(done);
                 }
             }
-            var selected = $("<div>").text(serviceSelected.style + " $" + serviceSelected.price + " " + serviceSelected.time + " min")
-            selected.attr("id", thisid)
-            selected.append(`
-            <button class = "btn btn-danger remove-service" data-id = ${thisid}> Remove </button>
-            `)
-            $(".selected").append(selected);
-            $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
-            var done = $("<a href = '/calendar' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
-            $(".done-selecting").html(done);
 
         });
         
