@@ -154,3 +154,11 @@
     text-align:center;
     
 }
+
+#noUser {
+	color: red;
+}
+
+.tabletBackground {
+	background-color: grey;
+}
