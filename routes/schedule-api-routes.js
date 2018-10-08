@@ -19,9 +19,16 @@ module.exports = function(app){
         });
     });
 
-    app.get("/api/history/:id", function(req, res){
+    app.get("/api/history/:id/:complete", function(req, res){
         db.Appointment.findAll({
-            where: {id: req.params.id}
+            where: {UserId: req.params.id, completed: req.params.complete},
+            include: [{
+                model: db.Service
+        }],
+        order: [
+            ['date', 'ASC'],
+            ['start', 'ASC'],
+        ]
         }).then(function(data){
             res.json(data);
         });
