@@ -93,17 +93,4 @@ module.exports = function (app) {
             res.redirect("/");
         })
     });
-
-//admin pages get request
-    app.get("/admin", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/admin/admin-home.html"))
-    });
-
-    app.get("/admin/services", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/admin/admin-service.html"))
-    });
-
-    app.get("/admin/appointment", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/admin/admin-appointments.html"))
-    });
 }

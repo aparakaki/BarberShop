@@ -19,12 +19,19 @@ module.exports = function (sequelize, DataTypes) {
         },
         time: {
             type: DataTypes.TINYINT
+        },
+        serviceStart:{
+            type: DataTypes.INTEGER
+        },
+        serviceEnd: {
+            type: DataTypes.INTEGER
+        },
+        serviceLength: {
+            type: DataTypes.INTEGER            
+        },
+        completed: {
+            type: DataTypes.BOOLEAN
         }
-        // },
-        // userId: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false
-        // }
     },
         {
             timestamps: false
@@ -32,11 +39,8 @@ module.exports = function (sequelize, DataTypes) {
 
         Appointment.associate = function (models) {
             Appointment.belongsToMany(models.Service, {
-                through: models.Detail
-                // foreignKey: {
-                //     name: "userId",
-                //     unique: false
-                // }
+                through: models.Detail,
+                onDelete: 'cascade' 
             });
         }
 
