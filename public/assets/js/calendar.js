@@ -87,6 +87,7 @@ $(document).ready(function () {
             date: chosenDate,
             start: apptTime,
             end: endTime,
+            completed: false,
             UserId: 1 //uId
         };
         $.post("/api/schedule", apptObj, function (data) {

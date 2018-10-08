@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var session = require("express-session");
 
 var app = express();
-var PORT = process.env.PORT || 8081;
+var PORT = process.env.PORT || 8080;
 // const cors = require('cors');
 var db = require("./models");
 
@@ -49,6 +49,7 @@ app.use(express.static("public"));
 require("./routes/services-api-routes.js")(app);
 require("./routes/schedule-api-routes.js")(app);
 require("./routes/admin-api-routes.js")(app);
+// require("./routes/user-api-routes.js")(app);
 require("./routes/html-routes.js")(app);
 
 db.sequelize.sync({ force: false }).then(function() {

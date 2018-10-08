@@ -58,11 +58,13 @@ var dropdownArray = [];
 var apptArray = [];
 
 $.get("api/appointments", function (data) {
-  apptArray = data;
   for (let i = 0; i < data.length; i++) {
-    displayAppt(data[i]);
-    if (!(dropdownArray.includes(data[i].date))) {
-      dropdownArray.push(data[i].date);
+    if(data[i].completed === false) {
+      apptArray.push(data[i]);
+      displayAppt(data[i]);
+      if (!(dropdownArray.includes(data[i].date))) {
+        dropdownArray.push(data[i].date);
+      }
     }
   }
   addToDropdown();
