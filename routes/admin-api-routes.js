@@ -2,7 +2,7 @@ var db = require("../models");
 
 
 module.exports = function(app){
-    app.get("/admin/api/appointments", function(req, res){
+    app.get("/api/appointments", function(req, res){
         db.Appointment.findAll({
             include: [{
                     model: db.Service

@@ -1,11 +1,10 @@
 var path = require("path");
 var db = require("../models");
 
-
 module.exports = function (app) {
     app.get("/", function (req, res) {
         if (req.session.user) {
-            res.redirect("/services");
+            res.redirect("/userHome");
         }
         else if (req.headers.cookie) {
             if (req.headers.cookie.match(/(?<=token=)[^ ;]*/) !== null) {
@@ -20,7 +19,7 @@ module.exports = function (app) {
                             username: req.body.username,
                             password: req.body.password
                         }
-                        return res.redirect("/services");
+                        return res.redirect("/userHome");
                     }
                     res.clearCookie("token");
                     res.redirect("/");
@@ -33,9 +32,9 @@ module.exports = function (app) {
         else {
             res.sendFile(path.join(__dirname, "../index.html"));
         }
-    });
+    });  
 
-    app.get("/services", function (req, res) {
+    app.get("/servicesTwo", function (req, res) {
         // if (req.session.user) {
         //     db.User.findOne({
         //         where: {
@@ -52,6 +51,26 @@ module.exports = function (app) {
         //             res.redirect("/");
         //         }
         //     });
+            // res.sendFile(path.join(__dirname, "../public/admin/create-service.html"));
+        // }
+        // else {
+            // res.redirect("/");
+        // }
+    });    
+
+    // routes for admin
+    app.get("/adminHome", function (req, res) {
+        // if (req.session.user) {
+            res.sendFile(path.join(__dirname, "../public/admin/admin-home.html"));
+        // }
+        // else {
+            // res.redirect("/");
+        // }
+    });
+    app.get("/adminCurrentAppt", function (req, res) {
+        // if (req.session.user) {
+            res.sendFile(path.join(__dirname, "../public/admin/current-appointments.html"));
+            
         // }
         // else {
         //     res.clearCookie("token");
@@ -60,6 +79,45 @@ module.exports = function (app) {
         // }
     });
 
+    app.get("/adminCreateServices", function (req, res) {
+        // if (req.session.user) {
+            res.sendFile(path.join(__dirname, "../public/admin/create-service.html"));
+        // }
+        // else {
+            // res.redirect("/");
+        // }
+    });
+
+        // routes for user pages
+        //sending html indexes into its place
+        app.get("/userHome", function (req, res) {
+            // if (req.session.user) {
+                res.sendFile(path.join(__dirname, "../public/home-page/home-page.html"));
+            // }
+            // else {
+                // res.redirect("/");
+            // }
+        });
+
+        app.get("/userHistory", function (req, res) {
+            // if (req.session.user) {
+                res.sendFile(path.join(__dirname, "../public/home-page/history.html"));
+            // }
+            // else {
+                // res.redirect("/");
+            // }
+        });
+
+        app.get("/userUpcomingAppt", function (req, res) {
+            // if (req.session.user) {
+                res.sendFile(path.join(__dirname, "../public/home-page/upcoming-appt.html"));
+            // }
+            // else {
+                // res.redirect("/");
+            // }
+        });
+
+    //
     app.get("/calendar", function (req, res) {
         // db.User.findOne({
         //     where: {
@@ -73,10 +131,10 @@ module.exports = function (app) {
         // });
     });
 
-    app.get("/user-home", function(req, res){
-        res.sendFile(path.join(__dirname, "../public/user-home.html"))
-    });
-
+    // app.get("/user-home", function(req, res){
+    //     res.sendFile(path.join(__dirname, "../public/user-home.html"))
+    // });
+ // sign in for ipad
     app.get("/tablet", function (req, res) {
         res.sendFile(path.join(__dirname, "../public/tablet.html"));
     });

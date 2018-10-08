@@ -51,6 +51,8 @@ $(document).ready(function () {
             $(".done").attr("href", "/calendar");
         }
 
+    // $(document).on("click", ".done", function(){
+        
         sessionStorage.setItem("serviceSelected", JSON.stringify(serviceSelected));
         sessionStorage.setItem("servicePrice", totalPrice);
         sessionStorage.setItem("serviceTime", totalTime);

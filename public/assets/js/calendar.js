@@ -84,62 +84,57 @@ $(document).ready(function () {
 
 
         var apptObj = {
-<<<<<<< HEAD
-            date: chosenDate, 
-            start: apptTime, 
-            end:endTime, 
+            date: chosenDate,
+            start: apptTime,
+            end: endTime,
             UserId: 1 //uId
         };
-        $.post("/api/schedule", apptObj, function(data) {
+        $.post("/api/schedule", apptObj, function (data) {
             for (let i = 0; i < selectService.length; i++) {
                 var detailObj = {
                     AppointmentId: data.id,
                     ServiceId: selectService[i].id
                 };
-                $.post("/api/details", detailObj, function(data) {
+                $.post("/api/details", detailObj, function (data) {
                     console.log(data);
                 });
             }
         })
-    });
-    
-    function postDetail(id) {
-        for (let i = 0; i < selectService.length; i++) {
-            var detailObj = {
-                AppointmentId: id,
-                ServiceId: selectService[i].id
-            };
-            $.post("/api/details", detailObj, function(data) {
-                console.log(data);
-            });
-        }
-        return;
-    }
-    
-=======
-            date: chosenDate,
-            start: apptTime,
-            end: endTime,
-            userId: 1 //uId
-        }
+
+
         $.post("/api/schedule", apptObj, function (data) {
             console.log(data);
             // $.post("/api/details", )
             $(".modal-body").html(`
-            Your appointment on ${chosenDate} has been booked! 
-            `);
+                Your appointment on ${chosenDate} has been booked! 
+                `);
             $(".modal-title").text("Thank You!")
             $("#book-apt").hide();
             $(".cancel").hide();
-            var home = $("<a href = '/user-home'><button class = 'btn btn-info home'>Back To Home</button></a>");
+            var home = $("<a href = '/userHome'><button class = 'btn btn-info home'>Back To Home</button></a>");
             $(".modal-footer").append(home);
-
-
-
-        })
+    
+    
+    
+        });
     });
 
->>>>>>> thank-you-page
+    // function postDetail(id) {
+    //     for (let i = 0; i < selectService.length; i++) {
+    //         var detailObj = {
+    //             AppointmentId: id,
+    //             ServiceId: selectService[i].id
+    //         };
+    //         $.post("/api/details", detailObj, function (data) {
+    //             console.log(data);
+    //         });
+    //     }
+    //     return;
+    // }
+
+    
+
+
     // function editTime(time) {
     //     if(time[0] === "0") {
     //         time = 
