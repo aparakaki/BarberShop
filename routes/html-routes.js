@@ -5,12 +5,9 @@ var db = require("../models");
 module.exports = function (app) {
     app.get("/", function (req, res) {
         if (req.session.user) {
-            console.log("1");
-            console.log(req.session.user);
             res.redirect("/services");
         }
         else if (req.headers.cookie) {
-            console.log("2");
             if (req.headers.cookie.match(/(?<=token=)[^ ;]*/) !== null) {
                 var cookie = req.headers.cookie.match(/(?<=token=)[^ ;]*/)[0];
                 db.User.findOne({
@@ -34,7 +31,6 @@ module.exports = function (app) {
             }
         }
         else {
-            console.log("3");
             res.sendFile(path.join(__dirname, "../index.html"));
         }
     });
@@ -48,7 +44,6 @@ module.exports = function (app) {
                 }
             }).then(function (user) {
                 if (user !== null) {
-                    console.log("services");
                     res.sendFile(path.join(__dirname, "../public/services.html"));
                 }
                 else {
@@ -59,7 +54,6 @@ module.exports = function (app) {
             });
         }
         else {
-            console.log("service2");
             res.clearCookie("token");
             req.session.destroy();
             res.redirect("/");
