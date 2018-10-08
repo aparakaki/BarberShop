@@ -1,0 +1,23 @@
+.container {
+    margin: auto;
+    padding: 20px
+}
+
+.services {
+    padding: 10px;
+}
+
+.accordion {
+    padding: 20px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.past {
+    padding: 0px;
+}
+
+h2 {
+    text-align: center;
+}

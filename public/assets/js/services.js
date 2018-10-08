@@ -1,42 +1,56 @@
 
 $(document).ready(function () {
-var serviceSelected = [];
-var totalTime = 0;
-var totalPrice = 0;
-var serviceDel;
+    var serviceSelected = [];
+    var totalTime = 0;
+    var totalPrice = 0;
+    var serviceDel;
 
     getServices();
 
 
-    $(document).on("click", ".service-select" , function(){
-        var thisid= $(this).data("id")
-        
-        $.get("/api/services", function(data){
-            for(var i=0; i<data.length; i++){
-                if(thisid === data[i].id){
-                  serviceSelected.push(data[i]);
-                  totalTime += data[i].time
-                  totalPrice += parseInt(data[i].price)  
-                  
-                  var selected = $("<div>").text(data[i].style + " $" + data[i].price + " " + data[i].time + " min")
-                  selected.attr("id", thisid)
-                  selected.append(`
-                  <button class = "btn btn-danger remove-service" data-id = ${thisid}> Remove </button>
-                  `)
-                  $(".selected").append(selected);
-                  $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
-                  var done = $("<a href = '/calendar' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
-                  $(".done-selecting").html(done);
-                }
-            }
+    $(document).on("click", ".service-select", function () {
+        var thisid = $(this).data("id")
 
+        $.get("/api/services", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if (thisid === data[i].id) {
+                    serviceSelected.push(data[i]);
+                };
+            };
+            console.log(serviceSelected);
+            $(".selected").empty();
+
+            var title = $("<h2>").text("Services Selected");
+            $(".selected").append(title);
+
+            totalTime = 0;
+            totalPrice = 0;
+            for (var j = 0; j < serviceSelected.length; j++) {
+                totalTime += serviceSelected[j].time
+                totalPrice += parseInt(serviceSelected[j].price)
+                var selected = $("<div>").text(serviceSelected[j].style + " $" + serviceSelected[j].price + " " + serviceSelected[j].time + " min")
+                selected.attr("id", serviceSelected[j].id)
+                selected.append(`
+            <button class = "btn btn-danger remove-service" data-id = ${serviceSelected[j].id}> Remove </button>
+            `)
+                $(".selected").append(selected);
+                $(".totals").html("<h2> Totals </h2> Total Time: " + totalTime + "min <br> Total Price: $" + totalPrice)
+                var done = $("<a href = '#' class = 'done' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
+                $(".done-selecting").html(done);
+            }
         });
-        
+
 
     });
 
-    $(document).on("click", ".done", function(){
-        
+    $(document).on("click", ".done", function () {
+        if(serviceSelected.length === 0){
+            alert("select a service")
+
+        } else{
+            $(".done").attr("href", "/calendar");
+        }
+
         sessionStorage.setItem("serviceSelected", JSON.stringify(serviceSelected));
         sessionStorage.setItem("servicePrice", totalPrice);
         sessionStorage.setItem("serviceTime", totalTime);
@@ -44,32 +58,32 @@ var serviceDel;
     })
 
 
-    $(document).on("click", ".remove-service", function(){
+    $(document).on("click", ".remove-service", function () {
         var time;
         var price;
         var buttonId = $(this).data("id")
         $("#" + buttonId + " ").remove();
 
-        $.get("/api/services", function(data){
-            for(var i=0; i<data.length; i++){
-                if(buttonId === data[i].id){
+        $.get("/api/services", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if (buttonId === data[i].id) {
                     serviceDel = data[i];
                     time = data[i].time;
                     price = data[i].price;
                 }
             }
             totalTime -= parseInt(time);
-        totalPrice -= parseInt(price);
-        $(".totals").html("Total Time: " +  totalTime + "min <br> Total Price: $" + totalPrice)
-        
-        var index = serviceSelected.indexOf(serviceDel);
-        serviceSelected.remove(index, 1);
-            
+            totalPrice -= parseInt(price);
+            $(".totals").html("<h2> Totals </h2> Total Time: " + totalTime + "min <br> Total Price: $" + totalPrice)
+
+            var index = serviceSelected.indexOf(serviceDel);
+            serviceSelected.splice(index, 1);
+
         });
 
-        
 
-        
+
+
     });
 
     function getServices() {

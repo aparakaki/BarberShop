@@ -1,18 +1,18 @@
 
-$(document).ready(function(){
+$(document).ready(function () {
 
 
 
-    for (var i=1; i<32; i++){
+    for (var i = 1; i < 32; i++) {
         var day = $("<li>").text(i);
         day.addClass("day")
-        if( i < 10){
-            day.attr("id", "2018-10-0" + i );
-        } else{
-            day.attr("id", "2018-10-" + i );
+        if (i < 10) {
+            day.attr("id", "2018-10-0" + i);
+        } else {
+            day.attr("id", "2018-10-" + i);
         }
-        
-        $(".days").append(day);   
+
+        $(".days").append(day);
     };
 
     var selectService = JSON.parse(sessionStorage.getItem('serviceSelected'));
@@ -28,7 +28,7 @@ $(document).ready(function(){
     var apptTime;
 
 
-    $(document).on("click", ".day", function(event){
+    $(document).on("click", ".day", function (event) {
         event.preventDefault();
         chosenDate = $(this).attr("id");
         //make get request for time slots and post the ones that apply 
@@ -36,10 +36,10 @@ $(document).ready(function(){
         timesArray = [];
         $(".morning").empty();
         $(".afternoon").empty();
-        
+
         console.log(chosenDate);
 
-        $.get("/api/schedule/" + chosenDate,function (data) {
+        $.get("/api/schedule/" + chosenDate, function (data) {
             timesArray = [];
             // console.log(data);
             timesArray = getTimeSlots(sortTimeData(data));
@@ -48,9 +48,9 @@ $(document).ready(function(){
             for (let i = 0; i < timesArray.length; i++) {
                 let temp = convertTime(timesArray[i])
                 let timeBtn = $("<button>").addClass("btn btn-info time-btn")
-                                .attr("data-id", i).text(temp)
-                                .attr("data-toggle", "modal")
-                                .attr("data-target", "#scheduleModal");
+                    .attr("data-id", i).text(temp)
+                    .attr("data-toggle", "modal")
+                    .attr("data-target", "#scheduleModal");
                 let btnDiv = $("<div>").append(timeBtn);
                 if (temp.slice(-2) === "am") {
                     $(".morning").append(btnDiv);
@@ -63,24 +63,28 @@ $(document).ready(function(){
     });
 
 
-    $(document).on("click", ".time-btn", function(event) {
+    $(document).on("click", ".time-btn", function (event) {
         event.preventDefault();
         var index = $(this).data("id");
         apptTime = timesArray[index];
+        $("#book-apt").show();
+        $(".cancel").show();
+        $(".home").hide();
         $(".modal-body").html(`
             Date: ${chosenDate} <br>
             Time: ${apptTime}
         `)
     })
 
-    $(document).on("click", "#book-apt", function(event) {
+    $(document).on("click", "#book-apt", function (event) {
         event.preventDefault();
         var temp = new Date('1970/01/01 ' + apptTime);
         var endTime = new Date(temp.getTime() + (totalTime * 60 * 1000));
         endTime = endTime.toString().split(" ")[4].substring(0, 5)
 
-    
+
         var apptObj = {
+<<<<<<< HEAD
             date: chosenDate, 
             start: apptTime, 
             end:endTime, 
@@ -112,13 +116,37 @@ $(document).ready(function(){
         return;
     }
     
+=======
+            date: chosenDate,
+            start: apptTime,
+            end: endTime,
+            userId: 1 //uId
+        }
+        $.post("/api/schedule", apptObj, function (data) {
+            console.log(data);
+            // $.post("/api/details", )
+            $(".modal-body").html(`
+            Your appointment on ${chosenDate} has been booked! 
+            `);
+            $(".modal-title").text("Thank You!")
+            $("#book-apt").hide();
+            $(".cancel").hide();
+            var home = $("<a href = '/user-home'><button class = 'btn btn-info home'>Back To Home</button></a>");
+            $(".modal-footer").append(home);
+
+
+
+        })
+    });
+
+>>>>>>> thank-you-page
     // function editTime(time) {
     //     if(time[0] === "0") {
     //         time = 
     //     }
     // }
 
-    
+
 
 
 
@@ -129,8 +157,8 @@ $(document).ready(function(){
         var startTime = empStart;
 
         //checks if there's an appointment at the very start of the shift
-        for(let i = 0; i < appointments.length; i++) {
-            if(appointments[i].start === empStart) {
+        for (let i = 0; i < appointments.length; i++) {
+            if (appointments[i].start === empStart) {
                 startTime = new Date('1970/01/01 ' + empStart);
                 startTime = new Date(startTime.getTime() - 60000).toString().split(" ")[4].substring(0, 5);
                 console.log(startTime)
@@ -140,7 +168,7 @@ $(document).ready(function(){
                 startTime = empStart;
             }
         }
-        
+
         appointments.push({ start: startTime, end: startTime });
         appointments.push({ start: empEnd });
 
@@ -158,29 +186,29 @@ $(document).ready(function(){
     function getTimeSlots(appointments) {
         var dateEvents = appointments.map(function (event) {
             return {
-              start: new Date('1970-01-01 ' + event.start),
-              end: new Date('1970-01-01 ' + event.end)
+                start: new Date('1970-01-01 ' + event.start),
+                end: new Date('1970-01-01 ' + event.end)
             };
-          });
-          
-          var requiredGap = totalTime * 60 * 1000;
-          var prev = dateEvents[0];
-          var firstGap = null;
-          
-          var timeSlots = [];
-          
-          for (var i = 1; i < dateEvents.length; i++) {
+        });
+
+        var requiredGap = totalTime * 60 * 1000;
+        var prev = dateEvents[0];
+        var firstGap = null;
+
+        var timeSlots = [];
+
+        for (var i = 1; i < dateEvents.length; i++) {
             var current = dateEvents[i];
             var diff = current.start - prev.end;
-          
+
             if (diff >= requiredGap) {
-              firstGap = {
-                start: prev.end,
-                end: current.start
-              };
-              timeSlots.push(firstGap);
+                firstGap = {
+                    start: prev.end,
+                    end: current.start
+                };
+                timeSlots.push(firstGap);
             }
-          
+
             prev = current;
         }
 
@@ -194,14 +222,14 @@ $(document).ready(function(){
         }
         return availTimes;
     };
-    
+
     //converts 24-hr format to am/pm format
-    function convertTime(inTime) {                 
+    function convertTime(inTime) {
         var hourVar = parseInt(inTime.slice(0, 3));
         var minVar = inTime.slice(3);
-      
-        if(hourVar > 12) {
-            hourVar = hourVar -12;
+
+        if (hourVar > 12) {
+            hourVar = hourVar - 12;
             var hourStr = hourVar + ":" + minVar + "pm";
         }
         else if (hourVar === 12) {
@@ -210,7 +238,7 @@ $(document).ready(function(){
         else {
             var hourStr = hourVar + ":" + minVar + "am";
         }
-        
+
         return hourStr;
-      }
+    }
 });
