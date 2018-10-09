@@ -17,9 +17,6 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING(5),
             allowNull: false
         },
-        time: {
-            type: DataTypes.TINYINT
-        },
         serviceStart:{
             type: DataTypes.INTEGER
         },
