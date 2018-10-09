@@ -135,3 +135,15 @@
     background-color: transparent;
     text-align: center;
 }
+
+.edit-modal-body {
+    text-align: center;
+}
+
+.edit-form {
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
