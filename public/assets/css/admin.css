@@ -135,3 +135,13 @@
     background-color: transparent;
     text-align: center;
 }
+
+.deleteBtn {
+    margin-left: 23px;
+}
+
+.modalBodyCss {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
