@@ -1,27 +1,48 @@
 var db = require("../models");
 
 
-module.exports = function(app){
-    app.get("/api/appointments", function(req, res){
+module.exports = function (app) {
+    app.get("/api/appointments", function (req, res) {
         db.Appointment.findAll({
             include: [{
-                    model: db.Service
+                model: db.Service
             }],
             order: [
                 ['date', 'ASC'],
                 ['start', 'ASC'],
             ]
-        }).then(function(data){
+        }).then(function (data) {
             res.json(data);
         })
     });
 
-    app.get("/api/customer/:id", function(req, res){
+    app.get("/api/customer/:id", function (req, res) {
         db.User.findAll({
             where: {
                 id: req.params.id
             }
-        }).then(function(data){
+        }).then(function (data) {
+            res.json(data);
+        })
+    });
+
+    // set local storage
+    app.get("/setLocalStorage", function (req, res) {
+        db.User.findOne({
+            where: {
+                username: req.session.user.username
+            }
+        }).then(function (data){
+            res.json(data);
+        })
+    });
+
+    app.get("/setLocalStorageAdmin", function (req, res) {
+        db.User.findOne({
+            where: {
+                username: req.session.user.username
+            }
+        }).then(function (data){
             res.json(data);
         })
     });

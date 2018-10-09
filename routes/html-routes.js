@@ -21,26 +21,27 @@ module.exports = function (app) {
                         token: cookie
                     }
                 }).then(function (data) {
-                    console.log(data);
                     if (data !== null) {
                         req.session.user = {
-                            username: req.body.username,
-                            password: req.body.password,
+                            username: data.dataValues.username,
+                            password: data.dataValues.password,
                             admin: data.dataValues.admin
                         }
+                        console.log("2.5");
                         return res.redirect("/userHome");
                     }
+                    console.log("3");
                     res.clearCookie("token");
                     res.redirect("/");
                 });
             }
             else {
-                console.log("3");
+                console.log("4");
                 res.sendFile(path.join(__dirname, "../index.html"));
             }
         }
         else {
-            console.log("4");
+            console.log("5");
             res.sendFile(path.join(__dirname, "../index.html"));
         }
     });
@@ -152,7 +153,6 @@ module.exports = function (app) {
 
     //login routes
     app.post("/login", function (req, res) {
-        console.log(req.body.keepSignedIn);
         db.User.findOne({
             where: {
                 username: req.body.username,
@@ -179,7 +179,6 @@ module.exports = function (app) {
                     password: req.body.password,
                     admin: data.dataValues.admin
                 }
-                console.log(req.session.user);
                 return res.redirect("/");
             }
             res.redirect("/userNotFound");
@@ -224,7 +223,6 @@ module.exports = function (app) {
             }
         }).then(function (data) {
             var userId = data.dataValues.id;
-            console.log(userId);
             db.Appointment.update({
                 serviceStart: req.body.startTime
             }, {
@@ -265,9 +263,6 @@ module.exports = function (app) {
                         res.json(user);
                     });
             })
-
-
-
         });
-    })
+    });
 }

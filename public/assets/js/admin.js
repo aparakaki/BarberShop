@@ -5,6 +5,12 @@ $(document).ready(function() {
   $("#wrapper").toggleClass("toggled");
 });
 
+$.get("/setLocalStorageAdmin", function (data) {
+  console.log(data.id);
+  console.log("hit");
+  localStorage.clear();
+  localStorage.setItem("userId", data.id);
+});
 
 // for (var i = 0; i < newArray.length; i++) {
 //   var $name = $("<div>", { class: "appendedName" });
