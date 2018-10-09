@@ -5,7 +5,7 @@ $(document).ready(function () {
       });
     
 
-var id = 1; //need to store the user id so we can use it to get the history
+var id = 1; //uid from session storage
 
 $.get("/api/user/" + id, function(data){
     //grab name from data to show on welcome sign
