@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../assets/css/admin.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
 </head>
 
 <body>
@@ -52,63 +54,72 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12"> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <div class="col-lg-1">
+                        <a href="#menu-toggle" class="btn btn-dark" id="menu-toggle"><i class="fas fa-bars"></i></a>
+                    </div>
+                    <div class="col-lg-9">
                         <h1>Upcoming Appointments</h1>
-                        <p></p>
-                        <!-- <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p> -->
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-2 border border-dark">
-                                    Appoinment Date
-                                </div>
-                                <div class="col-md-2 border border-dark">
-                                    Appoinment Time
-                                </div>
-                                <div class="col-md-4  border border-dark">
-                                    Service Type
-                                </div>
-                                <div class="col-md-2 border border-dark">
-                                    Price
-                                </div>
-                                <div class="col-md-2 border border-dark">
-                                    Cancel Appointment
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2 border border-dark" id="apptDate">
-                                    <!-- Hair Cut Type appends here -->
-                                </div>
-                                <div class="col-md-2  border border-dark" id="apptTime">
-                                    <!-- Appoinment Time appends here -->
-                                </div>
-                                <div class="col-md-4 border border-dark" id="apptService">
-                                    <!-- Hair Cut Type appends here -->
-                                </div>
-                                <div class="col-md-2 border border-dark" id="apptPrice">
-                                    <!-- Price appends here -->
-                                </div>
-                                <div class="col-md-2 border border-dark" id="apptCancel">
-                                    <!-- Cancel btn appends here -->
-                                </div>
-                                <!-- append ends here -->
-                            </div>
-                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <a href="/servicesTwo" style="float:right"><button class="btn btn-primary">Book a Service</button></a>
+                    </div>
+                    <div class="col-lg-1">
+                        <a href="/logout" style="float:right"><button class="btn btn-danger">logout</button></a>
                     </div>
                 </div>
-                <!-- /#page-content-wrapper -->
-
-
+                <!-- <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p> -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2 border border-dark">
+                            Appoinment Date
+                        </div>
+                        <div class="col-md-2 border border-dark">
+                            Appoinment Time
+                        </div>
+                        <div class="col-md-4  border border-dark">
+                            Service Type
+                        </div>
+                        <div class="col-md-2 border border-dark">
+                            Price
+                        </div>
+                        <div class="col-md-2 border border-dark">
+                            Cancel Appointment
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 border border-dark" id="apptDate">
+                            <!-- Hair Cut Type appends here -->
+                        </div>
+                        <div class="col-md-2  border border-dark" id="apptTime">
+                            <!-- Appoinment Time appends here -->
+                        </div>
+                        <div class="col-md-4 border border-dark" id="apptService">
+                            <!-- Hair Cut Type appends here -->
+                        </div>
+                        <div class="col-md-2 border border-dark" id="apptPrice">
+                            <!-- Price appends here -->
+                        </div>
+                        <div class="col-md-2 border border-dark" id="apptCancel">
+                            <!-- Cancel btn appends here -->
+                        </div>
+                        <!-- append ends here -->
+                    </div>
+                </div>
             </div>
-            <!-- /#wrapper -->
+            <!-- /#page-content-wrapper -->
+
+
+        </div>
+        <!-- /#wrapper -->
 
 
 
 
-            <!-- JS SCRIPT LINKS FILES -->
-            <script src="https://code.jquery.com/jquery.js"></script>
-            <script src="../assets/js/home.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-                crossorigin="anonymous"></script>
+        <!-- JS SCRIPT LINKS FILES -->
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="../assets/js/home.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
 
 
 </body>
