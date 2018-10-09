@@ -1,6 +1,8 @@
-INSERT INTO users (name, username, password) VALUES
-("bob", "bob123", "123434"),
-("Sarah", "sarah34", "asdfsad");
+INSERT INTO users (name, username, password, admin) VALUES 
+("clark", "clark123", 123456, true),
+("peter", "peter123", 123456, true),
+("john", "john123", 234567, false),
+("kevin", "kevin123", 234567, false);
 
 INSERT INTO services (style, time, price, description)
 VALUES ("Basic Cut", 20, 21, "Scissor cut with shampoo and neck shave"), 

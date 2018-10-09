@@ -5,6 +5,61 @@ $(document).ready(function() {
   $("#wrapper").toggleClass("toggled");
 });
 
+$.get("/setLocalStorageAdmin", function (data) {
+  console.log(data.id);
+  console.log("hit");
+  localStorage.clear();
+  localStorage.setItem("userId", data.id);
+});
+
+// for (var i = 0; i < newArray.length; i++) {
+//   var $name = $("<div>", { class: "appendedName" });
+//   $name.append(newArray[i]);
+//   $name.addClass("col-md-3 border border-dark");
+//   $name.appendTo("#nameAdmin");
+// }
+// button on click function to grab the values inputed by the IDs
+// $(document).on("click", "#serviceButton", function (e) {
+//   // alert("hello world");
+//   let a = $("#newService").val();
+//   let b = $("#estimatedTime").val();
+//   let c = $("#newPrice").val();
+//   let d = $("#serviceDescrption").val();
+
+//   console.log("1" + a + "2" + b + "3" + c + "4" + d);
+// });
+
+// var timesArray = [];        //array that will hold the time slots available
+//     var chosenDate;
+//     var apptTime;
+// $.get("/api/schedule/",function (data) {
+//   timesArray = [];
+//   timesArray = getTimeSlots(sortTimeData(data));
+//             console.log(timesArray);
+//             for (let i = 0; i < timesArray.length; i++) {              
+//             // var $name = $("<div>", { class: "appendedName" });
+//             // $name.append(newArray[i]);
+//             // $name.addClass("col-md-3 border border-dark");
+//             // $name.appendTo("#nameAdmin");
+//             console.log(timesArray[i]);
+//               // let temp = convertTime(timesArray[i])
+//               // let newDiv = $("<div>").addClass("col-md-3 border border-dark")
+//               //                 .attr("data-id", i).text(temp)
+//               //                 .attr("data-toggle", "modal")
+//               //                 .attr("data-target", "#scheduleModal");
+//               // let btnDiv = $("<div>").append(timeBtn);    
+//               console.log(data);
+//           }
+//       }).then(function (response1) {
+//         console.log(response1);
+//       })
+
+
+
+// for (var i = 0; i < newArray.length; i++) {
+
+// }
+
 var dropdownArray = [];
 var apptArray = [];
 

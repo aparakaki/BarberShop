@@ -27,15 +27,15 @@
 							<form method='POST' action='/login'>
 								<div class="group">
 									<label for="user" class="label">Username</label>
-									<input id="user" type="text" name="username" class="input">
+									<input id="user" type="text" name="username" class="input" required>
 								</div>
 								<div class="group">
 									<label for="pass" class="label">Password</label>
-									<input id="pass" type="password" name="password" class="input" data-type="password">
+									<input id="pass" type="password" name="password" class="input" data-type="password" required>
 								</div>
 								<div class="group">
-									<input id="check" type="checkbox" class="check" checked>
-									<label for="check"><span class="icon"></span> Keep me Signed in</label>
+									<input id="check" type="checkbox" name="keepSignedIn" class="check" value="createCookie" checked>
+									<label for="check"><span class="icon"></span> Keep me signed in</label>
 								</div>
 								<div class="group">
 									<input type="submit" class="button" value="Sign In">
@@ -45,22 +45,22 @@
 							</div>
 						</div>
 						<div class="sign-up-htm">
-							<form method='POST' action='/createLogin'>
+							<form name="myForm" method='POST' action='/createLogin' onsubmit="return validatePasswords()">
 								<div class="group">
 									<label for="pass" class="label">Name</label>
-									<input id="pass" type="text" name="name" class="input">
+									<input id="pass" pattern="[0-9a-zA-Z]{1,}" title="Enter your name" type="text" name="name" class="input" required>
 								</div>
 								<div class="group">
 									<label for="user" class="label">Username</label>
-									<input id="user" type="text" name="username" class="input">
+									<input id="user" pattern="[0-9a-zA-Z]{4,}" title="Enter a min 4-character username" type="text" name="username" class="input" required>
 								</div>
 								<div class="group">
 									<label for="pass" class="label">Password</label>
-									<input id="pass" type="password" name="password" class="input" data-type="password">
+									<input id="createPassword1" pattern="[0-9a-zA-Z]{6,}" title="Enter a min 6-character password" type="password" name="password" class="input" data-type="password" required>
 								</div>
 								<div class="group">
 									<label for="pass" class="label">Repeat Password</label>
-									<input id="pass" type="password" class="input" data-type="password">
+									<input id="createPassword2" pattern="[0-9a-zA-Z]{6,}" title="Enter a min 6-character password" type="password" name="password2" class="input" data-type="password" required>
 								</div>
 								<div class="group">
 									<input type="submit" class="button" value="Sign Up">

@@ -1,4 +1,18 @@
+// passwords match validation
+function validatePasswords() {
+  var pass1 = document.getElementById("createPassword1").value;
+  var pass2 = document.getElementById("createPassword2").value;
+  var ok = true;
+  if (pass1 != pass2) {
+      document.getElementById("createPassword1").style.borderColor = "#E34234";
+      document.getElementById("createPassword2").style.borderColor = "#E34234";
+      ok = false;
+      alert("Passwords Do Not Match!!!");
+  }
+  return ok;
+}
 
+// tablet check in time
 $(document).on("click", "#tabletCheckIn", function (e) {
   event.preventDefault();
   let signInTime = {
@@ -12,7 +26,8 @@ $(document).on("click", "#tabletCheckIn", function (e) {
   }).then(function (data){
   })
 });
-// check out
+
+// tablet check out time
 $(document).on("click", "#tabletCheckOut", function (e) {
   event.preventDefault();
   let signOutTime = {
@@ -26,8 +41,8 @@ $(document).on("click", "#tabletCheckOut", function (e) {
   }).then(function (data){
   })
 });
-// jQuery & Velocity.js sign in JS
 
+// jQuery & Velocity.js sign in JS
 function slideUpIn() {
     $("#login").velocity("transition.slideUpIn", 1250)
   };
