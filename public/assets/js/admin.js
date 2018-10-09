@@ -88,32 +88,71 @@ function apptFilter(dateSelected) {
   }
 };
 
+// new display appt 
 function displayAppt(data) {
-    let timeDiv = $("<div>").text(convertTime(data.start));
-    $("#appointmentAdmin").append(timeDiv);
+  var row = $("<tr>")
+  let timeDiv = $("<td>").text(convertTime(data.start));
+  
 
-    let serDiv = $("<div>");
-    let priceDiv = $("<div>");
+  let serDiv = $("<td>");
+  let priceDiv = $("<td>");
 
-    var price = 0;
-    for (let j = 0; j < data.Services.length; j++) {
-      price += parseInt(data.Services[j].price);
-      if (j > 0) {
-        serDiv.append(", " + data.Services[j].style)
-      }
-      else {
-        serDiv.append(data.Services[j].style)
-      }
+  var price = 0;
+  for (let j = 0; j < data.Services.length; j++) {
+    price += parseInt(data.Services[j].price);
+    if (j > 0) {
+      serDiv.append(", " + data.Services[j].style)
     }
-    priceDiv.text("$" + price);
-    $("#priceAdmin").append(priceDiv);
-    $("#haircutAdmin").append(serDiv);
+    else {
+      serDiv.append(data.Services[j].style)
+    }
+  }
+  priceDiv.text("$" + price);
+  
 
-    $.get("/api/customer/" + data.UserId, function (data) {
-      let nameDiv = $("<div>").text(data[0].name);
-      $("#nameAdmin").append(nameDiv);
-    })
+  $.get("/api/customer/" + data.UserId, function (data) {
+    let nameDiv = $("<th scope = 'row'>").text(data[0].name);
+    
+
+    row.append(nameDiv, serDiv, timeDiv, priceDiv);
+
+    $(".appointments").append(row);
+  })
 }
+
+
+
+// new display appt
+
+
+
+
+// function displayAppt(data) {
+//     let timeDiv = $("<div>").text(convertTime(data.start));
+//     $("#appointmentAdmin").append(timeDiv);
+
+//     let serDiv = $("<div>");
+//     let priceDiv = $("<div>");
+
+//     var price = 0;
+//     for (let j = 0; j < data.Services.length; j++) {
+//       price += parseInt(data.Services[j].price);
+//       if (j > 0) {
+//         serDiv.append(", " + data.Services[j].style)
+//       }
+//       else {
+//         serDiv.append(data.Services[j].style)
+//       }
+//     }
+//     priceDiv.text("$" + price);
+//     $("#priceAdmin").append(priceDiv);
+//     $("#haircutAdmin").append(serDiv);
+
+//     $.get("/api/customer/" + data.UserId, function (data) {
+//       let nameDiv = $("<div>").text(data[0].name);
+//       $("#nameAdmin").append(nameDiv);
+//     })
+// }
 
 function addToDropdown() {
   for (var i = 0; i < dropdownArray.length; i++) {
@@ -128,10 +167,8 @@ function addToDropdown() {
 
 $("#dropdown1").change(function(){
   var dateSelected = $("#dropdown1 :selected").text();
-  $("#nameAdmin").empty();
-  $("#priceAdmin").empty();
-  $("#haircutAdmin").empty();
-  $("#appointmentAdmin").empty();
+  $(".appointments").empty();
+  
   apptFilter(dateSelected);
 });
 
@@ -183,6 +220,82 @@ function convertTime(inTime) {
 
     return hourStr;
 }
+
+
+getServices();
+
+function getServices(){
+  $.get("/api/services", function(data){
+    for(var i=0; i< data.length; i++){
+      $(".services-list").append(`
+      <tr>
+      <th scope='row'>${data[i].style}</th>
+      <td>$${data[i].price}</td>
+      <td>${data[i].time} min</td>
+      <td>${data[i].description}</td>
+      <td> <button class = 'btn btn-sm btn-warning edit-serv' data-toggle="modal" data-target="#edit" data-id = '${data[i].id}' data-price = '${data[i].price}' data-style ='${data[i].style}'><i class="fas fa-pencil-alt"></i></button> 
+      
+      <button class = 'btn btn-sm btn-danger del-serv' data-toggle="modal" data-target="#trash" data-id = '${data[i].id}'><i class="fas fa-trash-alt"></i></button></td>
+  </tr>
+      
+      
+      `)
+    };
+
+  });
+};
+
+var editId;
+
+$(document).on("click", ".edit-serv", function(){
+  editId = $(this).data("id");
+  $(".current-price").text($(this).data("price"));
+  $(".current-style").text($(this).data("style"));
+
+
+});
+
+$(document).on("click", "#edit-price", function(){
+  
+  var edit = {
+    id: editId,
+    newPrice: parseInt($("#new-price").val())
+  }
+  $.ajax("/api/services/edit", 
+  {
+    type: "PUT",
+    data: edit
+  }).then(function(data){
+    location.reload();
+    
+  });
+
+
+});
+
+
+ 
+$(document).on("click", ".del-serv", function(){
+  deleteId = $(this).data("id");
+
+});
+
+var deleteId;
+$(document).on("click", "#deleteConfirm", function(){
+  
+  console.log("id" + deleteId);
+  $.ajax("/api/services/delete", 
+  {
+    type: "DELETE",
+    data: {id: deleteId}
+  }).then(function(data){
+    location.reload();
+    
+  });
+
+});
+
+
 
 });
 

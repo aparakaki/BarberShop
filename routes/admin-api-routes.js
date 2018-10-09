@@ -50,4 +50,23 @@ module.exports = function(app){
         })
     });
 
-}
+    app.delete("/api/services/delete", function(req, res){
+        console.log(req.body);
+        db.Service.destroy({
+            where: {id: req.body.id}
+        }).then(function(data){
+            res.json(data);
+        });
+    });
+
+
+    app.put("/api/services/edit", function(req, res){
+        db.Service.update({
+            price: req.body.newPrice
+        },{
+            where: {id: req.body.id}
+        }).then(function(data){
+            res.json(data);
+        })
+    })
+};
