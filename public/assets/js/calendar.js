@@ -1,8 +1,6 @@
 
 $(document).ready(function () {
 
-
-
     for (var i = 1; i < 32; i++) {
         var day = $("<li>").text(i);
         day.addClass("day")
@@ -21,7 +19,7 @@ $(document).ready(function () {
     console.log(totalPrice);
     var totalTime = sessionStorage.getItem("serviceTime");
     console.log(totalTime);
-    var uId = sessionStorage.getItem("userId");
+    var userId = sessionStorage.getItem("userId");
     // console.log(data);
     var timesArray = [];        //array that will hold the time slots available
     var chosenDate;
@@ -67,19 +65,26 @@ $(document).ready(function () {
         event.preventDefault();
         var index = $(this).data("id");
         apptTime = timesArray[index];
+        var time = convertTime(apptTime);
+        var date = convertDate(chosenDate);
+        console.log(apptTime);
+        
         $("#book-apt").show();
         $(".cancel").show();
         $(".home").hide();
         $(".modal-body").html(`
-            Date: ${chosenDate} <br>
-            Time: ${apptTime}
+            Date: ${date} <br>
+            Time: ${time}
         `)
     })
 
     $(document).on("click", "#book-apt", function (event) {
         event.preventDefault();
+        console.log(apptTime);
+
         var temp = new Date('1970/01/01 ' + apptTime);
         var endTime = new Date(temp.getTime() + (totalTime * 60 * 1000));
+        console.log(apptTime);
         endTime = endTime.toString().split(" ")[4].substring(0, 5)
 
 
@@ -87,7 +92,8 @@ $(document).ready(function () {
             date: chosenDate,
             start: apptTime,
             end: endTime,
-            UserId: 1 //uId
+            completed: false,
+            UserId: 2 //userId
         };
         $.post("/api/schedule", apptObj, function (data) {
             for (let i = 0; i < selectService.length; i++) {
@@ -99,50 +105,18 @@ $(document).ready(function () {
                     console.log(data);
                 });
             }
-        })
-
-
-        $.post("/api/schedule", apptObj, function (data) {
-            console.log(data);
-            // $.post("/api/details", )
+            
+            var date = convertDate(chosenDate);
             $(".modal-body").html(`
-                Your appointment on ${chosenDate} has been booked! 
+                Your appointment on ${date} has been booked! 
                 `);
             $(".modal-title").text("Thank You!")
             $("#book-apt").hide();
             $(".cancel").hide();
             var home = $("<a href = '/userHome'><button class = 'btn btn-info home'>Back To Home</button></a>");
             $(".modal-footer").append(home);
-    
-    
-    
-        });
+        })
     });
-
-    // function postDetail(id) {
-    //     for (let i = 0; i < selectService.length; i++) {
-    //         var detailObj = {
-    //             AppointmentId: id,
-    //             ServiceId: selectService[i].id
-    //         };
-    //         $.post("/api/details", detailObj, function (data) {
-    //             console.log(data);
-    //         });
-    //     }
-    //     return;
-    // }
-
-    
-
-
-    // function editTime(time) {
-    //     if(time[0] === "0") {
-    //         time = 
-    //     }
-    // }
-
-
-
 
 
     //sorts the array of appointments in places them in the correct order by time
@@ -235,5 +209,10 @@ $(document).ready(function () {
         }
 
         return hourStr;
-    }
+    };
+
+    function convertDate(inDate) {
+        var newDate = inDate.split("-")[1] + "/" +inDate.split("-")[2] + "/" +inDate.split("-")[0]
+        return newDate;
+    };
 });

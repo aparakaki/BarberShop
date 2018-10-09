@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>barber</title>
+
+	<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	 crossorigin="anonymous">
+</head>
+
+<body>
+	
+	<div class="landing-page">
+		<div>
+
+			<!-- login -->
+			<div class="login-wrap">
+				<div class="login-html">
+					<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+					<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+					<div class="login-form">
+						<div class="sign-in-htm">
+							<form method='POST' action='/login'>
+								<div class="group">
+									<label for="user" class="label">Username</label>
+									<input id="user" type="text" name="username" class="input">
+								</div>
+								<div class="group">
+									<label for="pass" class="label">Password</label>
+									<input id="pass" type="password" name="password" class="input" data-type="password">
+								</div>
+								<div class="group">
+									<input id="check" type="checkbox" class="check" checked>
+									<label for="check"><span class="icon"></span> Keep me Signed in</label>
+								</div>
+								<div class="group">
+									<input type="submit" class="button" value="Sign In">
+								</div>
+							</form>
+							<div class="foot-lnk">
+							</div>
+						</div>
+						<div class="sign-up-htm">
+							<form method='POST' action='/createLogin'>
+								<div class="group">
+									<label for="pass" class="label">Name</label>
+									<input id="pass" type="text" name="name" class="input">
+								</div>
+								<div class="group">
+									<label for="user" class="label">Username</label>
+									<input id="user" type="text" name="username" class="input">
+								</div>
+								<div class="group">
+									<label for="pass" class="label">Password</label>
+									<input id="pass" type="password" name="password" class="input" data-type="password">
+								</div>
+								<div class="group">
+									<label for="pass" class="label">Repeat Password</label>
+									<input id="pass" type="password" class="input" data-type="password">
+								</div>
+								<div class="group">
+									<input type="submit" class="button" value="Sign Up">
+								</div>
+							</form>
+							<div class="hr"></div>
+							<div class="foot-lnk">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- JS SCRIPT LINKS FILES -->
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	 crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

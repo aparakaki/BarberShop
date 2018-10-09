@@ -10,49 +10,55 @@ $(document).ready(function () {
 
     $(document).on("click", ".service-select", function () {
         var thisid = $(this).data("id")
+        var found = false;
+        for (let h = 0; h < serviceSelected.length; h++) {
+            if (serviceSelected[h].id === thisid) {
+                found = true;
+                break;
+            }
+        }
 
-        $.get("/api/services", function (data) {
-            for (var i = 0; i < data.length; i++) {
-                if (thisid === data[i].id) {
-                    serviceSelected.push(data[i]);
+        if (!found) {
+            $.get("/api/services", function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (thisid === data[i].id) {
+                        serviceSelected.push(data[i]);
+                    };
                 };
-            };
-            console.log(serviceSelected);
-            $(".selected").empty();
+                console.log(serviceSelected);
+                $(".selected").empty();
 
-            var title = $("<h2>").text("Services Selected");
-            $(".selected").append(title);
+                var title = $("<h2>").text("Services Selected");
+                $(".selected").append(title);
 
-            totalTime = 0;
-            totalPrice = 0;
-            for (var j = 0; j < serviceSelected.length; j++) {
-                totalTime += serviceSelected[j].time
-                totalPrice += parseInt(serviceSelected[j].price)
-                var selected = $("<div>").text(serviceSelected[j].style + " $" + serviceSelected[j].price + " " + serviceSelected[j].time + " min")
-                selected.attr("id", serviceSelected[j].id)
-                selected.append(`
+                totalTime = 0;
+                totalPrice = 0;
+                for (var j = 0; j < serviceSelected.length; j++) {
+                    totalTime += serviceSelected[j].time
+                    totalPrice += parseInt(serviceSelected[j].price)
+                    var selected = $("<div>").text(serviceSelected[j].style + " $" + serviceSelected[j].price + " " + serviceSelected[j].time + " min")
+                    selected.attr("id", serviceSelected[j].id)
+                    selected.append(`
             <button class = "btn btn-danger remove-service" data-id = ${serviceSelected[j].id}> Remove </button>
             `)
-                $(".selected").append(selected);
-                $(".totals").html("<h2> Totals </h2> Total Time: " + totalTime + "min <br> Total Price: $" + totalPrice)
-                var done = $("<a href = '#' class = 'done' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
-                $(".done-selecting").html(done);
-            }
-        });
-
+                    $(".selected").append(selected);
+                    $(".totals").html("<h2> Totals </h2> Total Time: " + totalTime + "min <br> Total Price: $" + totalPrice)
+                    var done = $("<a href = '#' class = 'done' ><button class = 'btn btn-info done'>See Available Appintments</button></a>");
+                    $(".done-selecting").html(done);
+                }
+            });
+        }
 
     });
 
     $(document).on("click", ".done", function () {
-        if(serviceSelected.length === 0){
-            alert("select a service")
+        // if (serviceSelected.length === 0) {
+        //     alert("select a service")
 
-        } else{
-            $(".done").attr("href", "/calendar");
-        }
+        // } else {
+        // }
+        $(".done").attr("href", "/calendar");
 
-    // $(document).on("click", ".done", function(){
-        
         sessionStorage.setItem("serviceSelected", JSON.stringify(serviceSelected));
         sessionStorage.setItem("servicePrice", totalPrice);
         sessionStorage.setItem("serviceTime", totalTime);
@@ -81,6 +87,9 @@ $(document).ready(function () {
             var index = serviceSelected.indexOf(serviceDel);
             serviceSelected.splice(index, 1);
 
+            if(serviceSelected.length === 0) {
+                $(".done").remove();
+            }
         });
 
 

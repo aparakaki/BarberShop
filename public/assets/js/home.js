@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     var id = 2; //need to store the user id so we can use it to get the history
+    var userId = sessionStorage.getItem("userId");
 
     $.get("/api/user/" + id, function (data) {
         //grab name from data to show on welcome sign
@@ -26,7 +27,7 @@ $(document).ready(function () {
             let dateDiv = $("<div>").text(convertDate(data[i].date));
             let timeDiv = $("<div>").text(convertTime(data[i].start));
             let priceDiv = $("<div>");
-
+            
             var price = 0;
             for (let j = 0; j < data[i].Services.length; j++) {
                 price += parseInt(data[i].Services[j].price);
@@ -42,7 +43,9 @@ $(document).ready(function () {
             $("#apptService").append(serDiv);
             $("#apptTime").append(timeDiv);
             $("#apptDate").append(dateDiv);
-
+            
+            let cancelBtn = $("<button>").text("Cancel");
+            $("#apptCancel").append(cancelBtn);
         }
 
     });
