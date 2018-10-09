@@ -105,7 +105,7 @@ $(document).ready(function () {
             start: apptTime,
             end: endTime,
             completed: false,
-            UserId: 2 //userId
+            UserId: userId
         };
         $.post("/api/schedule", apptObj, function (data) {
             for (let i = 0; i < selectService.length; i++) {
