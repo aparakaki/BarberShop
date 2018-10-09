@@ -239,29 +239,35 @@ module.exports = function (app) {
     });
 
     app.post("/haircutEndTime", function (req, res) {
-        // db.User.findOne({
-        //     where: {
-        //         userName: req.body.userName
-        //     }
-        // }).then(function (data) {
+        db.User.findOne({
+            where: {
+                userName: req.body.userName
+            }
+        }).then(function (data) {
+            var userId = data.dataValues.id;
+            db.Appointment.findOne({
+                where: {
+                    UserId: userId
+                }
+            }).then(function (response) {
+                var userStartTime = response.dataValues.serviceStart;
+                var userEndTime = parseInt(req.body.endTime);
+                var totalTime = userEndTime - userStartTime
+                db.Appointment.update({
+                    serviceEnd: userEndTime,
+                    serviceLength: totalTime,
+                    completed: true
+                }, {
+                        where: {
+                            UserId: userId
+                        }
+                    }).then(function (user) {
+                        res.json(user);
+                    });
+            })
 
 
-        //     var userId = data.dataValues.id;
-        //     console.log(userId);
-        //     db.User.
-        //     var userStartTime = data.dataValues.serviceStart;
-        //     var userEndTime = parseInt(req.body.endTime);
-        //     console.log(userStartTime, userEndTime);
-        //     // var totalTime = userEndTime - userStartTime
-        //     // db.tabletTrackerTime.update({
-        //     //     totalTime: totalTime
-        //     // }, {
-        //     //         where: {
-        //     //             UserId: userId
-        //     //         }
-        //     //     }).then(function (user) {
-        //     //         res.json(user);
-        //     //     });
-        // });
+
+        });
     })
 }
