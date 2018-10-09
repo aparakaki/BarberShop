@@ -11,7 +11,7 @@ $(document).ready(function () {
         localStorage.setItem("userId", data.id);
     });
 
-    var id = 2; //need to store the user id so we can use it to get the history
+    var id = 3; //need to store the user id so we can use it to get the history
     var userId = sessionStorage.getItem("userId");
 
     $.get("/api/user/" + id, function (data) {
