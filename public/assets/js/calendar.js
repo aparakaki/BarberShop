@@ -15,6 +15,7 @@ $(document).ready(function () {
 
     var selectService = JSON.parse(sessionStorage.getItem('serviceSelected'));
     console.log(selectService);
+
     var totalPrice = sessionStorage.getItem("servicePrice");
     console.log(totalPrice);
     var totalTime = sessionStorage.getItem("serviceTime");
@@ -24,6 +25,13 @@ $(document).ready(function () {
     var timesArray = [];        //array that will hold the time slots available
     var chosenDate;
     var apptTime;
+
+    for (var i=0; i<selectService.length; i++){
+        var yourServ = $("<div>").append(`
+        ${selectService[i].style} ${selectService[i].time} min
+        `)
+        $(".your-service").append(yourServ);
+    }
 
 
     $(document).on("click", ".day", function (event) {
@@ -42,6 +50,10 @@ $(document).ready(function () {
             // console.log(data);
             timesArray = getTimeSlots(sortTimeData(data));
             console.log(timesArray);
+            var morn = $("<h5>").html("<i class='far fa-clock'></i> AM");
+            var after = $("<h5>").html("<i class='fas fa-clock'></i> PM");
+            $(".morning").append(morn);
+            $(".afternoon").append(after);
 
             for (let i = 0; i < timesArray.length; i++) {
                 let temp = convertTime(timesArray[i])
