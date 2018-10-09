@@ -3,27 +3,24 @@ $(document).ready(function () {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-
+    var userId;
     $.get("/setLocalStorage", function (data) {
         console.log(data.id);
         console.log("hit");
-        localStorage.clear();
-        localStorage.setItem("userId", data.id);
+        sessionStorage.setItem("userId", data.id);
+        userId = data.id;
+        $.get("/api/user/" + userId, function (data) {
+            //grab name from data to show on welcome sign
+            // console.log(data);
+            $(".user-name").text(data.name);
+    
+        });
     });
 
-    var id = 3; //need to store the user id so we can use it to get the history
-    var userId = sessionStorage.getItem("userId");
-
-    $.get("/api/user/" + id, function (data) {
-        //grab name from data to show on welcome sign
-        // console.log(data);
-        $(".user-name").text(data.name);
-
-    });
 
     var upcomingAppts = [];
 //upcoming appts display
-    $.get("/api/history/" + id + "/0", function (data) {
+    $.get("/api/history/" + userId + "/0", function (data) {
         // console.log(data);
         upcomingAppts = data;
         for (var i = 0; i < data.length; i++) {
@@ -57,7 +54,7 @@ $(document).ready(function () {
 
     });
     
-    $.get("/api/history/" + id + "/1", function (data) {
+    $.get("/api/history/" + userId + "/1", function (data) {
         // console.log(data);
         for (var i = 0; i < data.length; i++) {
             for (var j = 0; j < data[i].Services.length; j++) {
