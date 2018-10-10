@@ -169,3 +169,45 @@
 h1 {
    color:white; 
 }
+
+.barbers {
+    font-family: 'Oswald', sans-serif;
+}
+
+#blob {
+    background:black; 
+    height: 400px;
+}
+
+#slogan {
+    color:white; 
+    text-align: center; 
+    margin-top: 180px;
+    font-family: 'Oswald', sans-serif;
+}
+
+#barberPromise {
+    margin-top: 65px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px;
+}
+
+.container {
+    width: auto;
+    height: 500px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 0px;
+}
+
+.container.carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.marginAdjustment {
+    margin-top: 50px;
+}

@@ -13,13 +13,13 @@ $(document).ready(function () {
             //grab name from data to show on welcome sign
             // console.log(data);
             $(".user-name").text(data.name);
-    
+
         });
     });
 
 
     var upcomingAppts = [];
-//upcoming appts display
+    //upcoming appts display
     $.get("/api/history/" + userId + "/0", function (data) {
         // console.log(data);
         upcomingAppts = data;
@@ -43,17 +43,17 @@ $(document).ready(function () {
             }
             priceTd.text("$" + price);
             let cancelBtn = $("<button>").attr("id", `${i}`)
-            .attr("data-target", "#deleteApptTitle")
-            .attr("data-toggle", "modal")
-            .addClass("btn btn-danger btn-default btn-sm deleteBtn")
-            .append($("<i>").addClass("far fa-trash-alt"));
+                .attr("data-target", "#deleteApptTitle")
+                .attr("data-toggle", "modal")
+                .addClass("btn btn-danger btn-default btn-sm deleteBtn")
+                .append($("<i>").addClass("far fa-trash-alt"));
             btnTd.append(cancelBtn);
             $(rowTr).append(dateTd, timeTd, serTd, priceTd, btnTd);
             $("#apptTable").append(rowTr);
         }
 
     });
-    
+
     $.get("/api/history/" + userId + "/1", function (data) {
         // console.log(data);
         for (var i = 0; i < data.length; i++) {
@@ -66,14 +66,14 @@ $(document).ready(function () {
                 <td>$${data[i].Services[j].price}</td>
                 </tr>
                 `)
-                
+
             }
         }
     });
 
     var apptId;
 
-    $(document).on("click", ".deleteBtn", function(event) {
+    $(document).on("click", ".deleteBtn", function (event) {
         event.preventDefault();
         let index = parseInt($(this).attr("id"));
         console.log(upcomingAppts);
@@ -88,12 +88,12 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("click", "#cancel-appt", function(event) {
+    $(document).on("click", "#cancel-appt", function (event) {
         event.preventDefault();
 
         $.ajax("/api/appointment/" + apptId, {
             type: "DELETE"
-        }).then(function() {
+        }).then(function () {
             location.reload(true);
         })
     });
@@ -112,14 +112,17 @@ $(document).ready(function () {
         else {
             var hourStr = hourVar + ":" + minVar + "am";
         }
-        
+
         return hourStr;
     }
-    
-    
-        function convertDate(inDate) {
-            var newDate = inDate.split("-")[1] + "/" + inDate.split("-")[2] + "/" + inDate.split("-")[0]
-            return newDate;
-        }
-    
+
+
+    function convertDate(inDate) {
+        var newDate = inDate.split("-")[1] + "/" + inDate.split("-")[2] + "/" + inDate.split("-")[0]
+        return newDate;
+    }
+
+    $('.carousel').carousel({
+        interval: 4000
+    })
 });
