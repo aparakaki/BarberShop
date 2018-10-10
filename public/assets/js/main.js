@@ -1,4 +1,6 @@
-// passwords match validation
+// $( document ).ready(function() {
+  // Handler for .ready() called.
+
 function validatePasswords() {
   var pass1 = document.getElementById("createPassword1").value;
   var pass2 = document.getElementById("createPassword2").value;
@@ -19,11 +21,18 @@ $(document).on("click", "#tabletCheckIn", function (e) {
     userName: $("#idTablet").val().trim(),
     startTime: (Date.now()) / 1000 / 60
   }
-  console.log(signInTime);
-  $.ajax("/haircutStartTime", {
+  console.log(signInTime);  
+  // signInMsg();
+// setTimeout(alert('hello'),10000);
+ $("#idTablet").val("");
+ $(".insertMessage").append("<p><br><br>Thank you for signing in!<br></p>");
+ setTimeout(emptyVals, 3000);
+ $.ajax("/haircutStartTime", {
     type: "POST",
     data: signInTime
   }).then(function (data){
+    // $(".insertMessage").append("<p><br><br>Thank you for signing in!<br></p>");
+  
   })
 });
 
@@ -34,11 +43,21 @@ $(document).on("click", "#tabletCheckOut", function (e) {
     userName: $("#idTabletTwo").val().trim(),
     endTime: (Date.now()) / 1000 / 60
   }
-  console.log(signOutTime);
+  $("#idTabletTwo").val("");  
+  // function emptyMessage() {
+  //   $(".insertMessage").append("<p><br><br>Thank you for signing in!<br></p>");
+  //   $(".insertMessage")
+  // }
+
+  $(".insertMessage").append("<p><br><br>Thank you for signing out!<br></p>");
+  setTimeout(emptyVals, 3000);
   $.ajax("/haircutEndTime", {
     type: "POST",
     data: signOutTime
   }).then(function (data){
+    // signInMsg(); 
+    // $(".insertMessage").append("<p><br><br>Thank you for signing in!<br></p>");
+    
   })
 });
 
@@ -61,3 +80,17 @@ function slideUpIn() {
     shake();
   });
   //
+
+// function signInMsg() {
+//  $(".insertMessage").append("<p><br><br>Thank you for signing in!<br></p>");
+  
+// }
+
+  function emptyVals(){
+      
+    $(".insertMessage").empty();
+  }
+
+
+// });
+
