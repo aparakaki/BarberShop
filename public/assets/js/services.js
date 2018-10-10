@@ -6,7 +6,7 @@ $(document).ready(function () {
     var serviceDel;
 
     getServices();
-    $(".chosen").hide();
+    // $(".chosen").hide();
 
     $(document).on("click", ".service-select", function () {
         var thisid = $(this).data("id")
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 break;
             }
         }
-        $(".chosen").show();
+        // $(".chosen").show();
 
         if (!found) {
             $.get("/api/services", function (data) {
@@ -29,7 +29,7 @@ $(document).ready(function () {
                 console.log(serviceSelected);
                 $(".selected").empty();
 
-                var title = $("<h2>").text("Services Selected");
+                var title = $("<h3>").text("Services Selected");
                 $(".selected").append(title);
 
                 totalTime = 0;
@@ -44,7 +44,7 @@ $(document).ready(function () {
                 `)
                     $(".selected").append(selected);
                     $(".totals").html("<h3> Totals </h3> Total Time: " + totalTime + "min <br> Total Price: $" + totalPrice)
-                    var done = $("<a href = '#' class = 'done' ><button class = 'btn btn-info done'><i class='far fa-calendar-alt'></i> See Available Appintments</button></a>");
+                    var done = $("<a href = '#' class = 'done' ><button class = 'btn btn-primary done'><i class='far fa-calendar-alt'></i> See Available Appintments</button></a>");
                     $(".done-selecting").html(done);
                 }
             });
@@ -115,10 +115,10 @@ $(document).ready(function () {
     
         <div id="collapse${[i]}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body">
-            ${data[i].description}<br>  
-            Estimated Time: ${data[i].time} min <br>
-              Price: $${data[i].price} <br>
-              <button class = "btn btn-info btn-sm service-select" data-id = "${data[i].id}"> Select </button>
+           <em> ${data[i].description}</em><br>  
+            Estimated Time: <b>${data[i].time} min </b><br>
+              Price: <b>$${data[i].price}</b> <br>
+              <button class = "btn btn-warning btn-sm service-select" data-id = "${data[i].id}"> Select </button>
               
             </div>
         </div>

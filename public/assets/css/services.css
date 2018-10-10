@@ -1,3 +1,9 @@
+body {
+    background-color: #EAEDED;
+    
+    
+}
+
 .container {
     margin: auto;
     padding: 20px;
@@ -5,9 +11,10 @@
 }
 
 .services {
-    border: 2px solid #D5DBDB;
+    border: 1px solid black;
     border-radius: 10px;
-    background-color: #D5DBDB;
+    background-color: #A6ACAF;
+
 }
 
 .accordion {
@@ -23,13 +30,17 @@ h2 {
 }
 
 .selected, .totals, .done-selecting {
-    border: 2px solid #D5DBDB;
+    border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 5px;
-    background-color: #D5DBDB;
+    background-color: #A6ACAF;
 }
 
 .chosen {
     padding-top: 10%;
+}
+
+.service-select {
+    margin-top: 5px;
 }
