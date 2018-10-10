@@ -164,7 +164,7 @@ $(document).ready(function () {
             $(".modal-title").text("Thank You!")
             $("#book-apt").hide();
             $(".cancel").hide();
-            var home = $("<a href = '/userHome'><button class = 'btn btn-info home'>Back To Home</button></a>");
+            var home = $("<a href = '/userHome'><button class = 'btn btn-warning home'>Back To Home</button></a>");
             $(".modal-footer").append(home);
         })
     });
