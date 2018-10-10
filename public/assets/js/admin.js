@@ -8,7 +8,11 @@ $(document).ready(function () {
   $.get("/setLocalStorageAdmin", function (data) {
     console.log(data.id);
     console.log("hit");
-    sessionStorage.setItem("userId", data.id);
+    sessionStorage.setItem("userId", data.id); 
+    userId = data.id
+    $.get("/api/user/" + userId, function(data){
+      $(".user-name").text(data.name);
+    });
   });
 
   var dropdownArray = [];
