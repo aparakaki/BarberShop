@@ -217,52 +217,128 @@ module.exports = function (app) {
     });
 
     app.post("/haircutStartTime", function (req, res) {
-        db.User.findOne({
+        db.User.findAll({
             where: {
                 userName: req.body.userName
             }
-        }).then(function (data) {
-            var userId = data.dataValues.id;
-            db.Appointment.update({
-                serviceStart: req.body.startTime
-            }, {
-                    where: {
-                        UserId: userId
-                    }
-                }).then(function (user) {
-                    res.json(user);
-                })
+        }).then(function (data1) {
+            // console.log(data1[0].dataValues.id);
+            db.Appointment.findAll({
+                where: {
+                    UserId: data1[0].dataValues.id,
+                    completed: false
+                },
+                order: [
+                    ['date', 'ASC'],
+                    ['start', 'ASC'],
+                ]
+            }).then(function (data2) {
+                // console.log(data2);
+                var apptId = data2[0].dataValues.id;
+                db.Appointment.update({
+                    serviceStart: req.body.startTime
+                }, {
+                        where: {
+                            id: apptId
+                        }
+                    }).then(function (data3) {
+                        // console.log(data3);
+                        res.json(data3);
+                    })
+            })
         })
 
     });
 
     app.post("/haircutEndTime", function (req, res) {
-        db.User.findOne({
+        db.User.findAll({
             where: {
                 userName: req.body.userName
             }
-        }).then(function (data) {
-            var userId = data.dataValues.id;
-            db.Appointment.findOne({
+        }).then(function (data1) {
+            // console.log(data1[0].dataValues.id);
+            db.Appointment.findAll({
                 where: {
-                    UserId: userId
-                }
-            }).then(function (response) {
-                var userStartTime = response.dataValues.serviceStart;
+                    UserId: data1[0].dataValues.id,
+                    completed: false
+                },
+                order: [
+                    ['date', 'ASC'],
+                    ['start', 'ASC'],
+                ]
+            }).then(function (data2) {
+                // console.log(data2);
+                var apptId = data2[0].dataValues.id;
+
+                var userStartTime = data2[0].dataValues.serviceStart;
                 var userEndTime = parseInt(req.body.endTime);
-                var totalTime = userEndTime - userStartTime
+                var totalTime = userEndTime - userStartTime;
+
                 db.Appointment.update({
                     serviceEnd: userEndTime,
                     serviceLength: totalTime,
                     completed: true
                 }, {
                         where: {
-                            UserId: userId
+                            id: apptId
                         }
-                    }).then(function (user) {
-                        res.json(user);
+                    }).then(function () {
+                        db.Appointment.findAll({
+                            where: {
+                                id: apptId
+                            },
+                            include: [{
+                                model: db.Service
+                            }]
+                        }).then(function (data) {
+                            // console.log(data[0].dataValues)
+                            if (data[0].dataValues.Services.length === 1) {
+                                // console.log(totalTime);
+                                var current = data[0].dataValues.Services[0].dataValues.time;
+                                var newTime = Math.ceil((totalTime + current) / 2);
+                                // console.log(newTime);
+                                db.Service.update({
+                                    time: newTime
+                                }, {
+                                        where: {
+                                            id: data[0].dataValues.Services[0].dataValues.id
+                                        }
+                                    }).then(function () {
+                                        res.end();
+                                    })
+                            }
+                            res.end();
+                        })
                     });
             })
-        });
+        })
+
+        //     db.User.findOne({
+        //         where: {
+        //             userName: req.body.userName
+        //         }
+        //     }).then(function (data) {
+        //         var userId = data.dataValues.id;
+        //         db.Appointment.findOne({
+        //             where: {
+        //                 UserId: userId
+        //             }
+        //         }).then(function (response) {
+        //             var userStartTime = response.dataValues.serviceStart;
+        //             var userEndTime = parseInt(req.body.endTime);
+        //             var totalTime = userEndTime - userStartTime
+        //             db.Appointment.update({
+        //                 serviceEnd: userEndTime,
+        //                 serviceLength: totalTime,
+        //                 completed: true
+        //             }, {
+        //                     where: {
+        //                         UserId: userId
+        //                     }
+        //                 }).then(function (data) {
+        //                     res.json(data);
+        //                 });
+        //         })
+        //     });
     });
 }
