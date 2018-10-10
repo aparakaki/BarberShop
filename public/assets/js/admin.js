@@ -210,5 +210,59 @@ $(document).ready(function () {
       });
 
   });
+
+
+  //Set schedule times
+  $("#submitNewSchedule").on("click", function(event) {
+    event.preventDefault();
+    var dateIn = $("#dateInput").val().trim();
+    var startIn = $("#startInput").val().trim();
+    var btn1 = $("input:radio[name='group1']:checked").val();
+    var endIn = $("#endInput").val().trim();
+    var btn2 = $("input:radio[name='group2']:checked").val();
+
+    var dateInput = dateIn.split("/")[2] + "-" + dateIn.split("/")[0] + "-" + dateIn.split("/")[1];
+    var startTime = convertTime2(startIn,btn1);
+    var endTime = convertTime2(endIn, btn2);
+
+    var obj1 = {
+      date: dateInput,
+      start: startTime,
+      end: startTime,
+      completed: 1
+    };
+    var obj2 = {
+      date: dateInput,
+      end: "0",
+      start: endTime,
+      completed: 1
+    }
+
+    $.post("/api/appointment", obj1, function(data) {
+      console.log(data);
+      $.post("/api/appointment", obj2, function(data) {
+        console.log(data);
+      })
+    })
+
+  });
+
+  function convertTime2(input, x) {
+    var newTime;
+    var temp = input.split(":")[0];
+    console.log(temp);
+
+    if( (x === "pm" && temp < 12) ){
+      temp = parseInt(temp) + 12;
+    }
+    else if (temp.length < 2) {
+      temp = "0" + temp;
+      console.log(temp);
+    }
+
+    newTime = temp + ":" + input.split(":")[1];
+    console.log(newTime);
+    return newTime;
+  }
 });
 

@@ -148,25 +148,67 @@ $(document).ready(function () {
 
     //sorts the array of appointments in places them in the correct order by time
     function sortTimeData(appointments) {
-        var empStart = "09:00"  //start time set by employee
-        var empEnd = "17:00"   //end time set by employee
-        var startTime = empStart;
-
-        //checks if there's an appointment at the very start of the shift
-        for (let i = 0; i < appointments.length; i++) {
-            if (appointments[i].start === empStart) {
-                startTime = new Date('1970/01/01 ' + empStart);
-                startTime = new Date(startTime.getTime() - 60000).toString().split(" ")[4].substring(0, 5);
-                console.log(startTime)
-                break;
-            }
-            else {
-                startTime = empStart;
+        //checks if start and end times for the day have been set by the admin
+        var startFound = false;
+        var endFound = false;
+        for(let j = 0; j < appointments.length; j++) {
+            if(appointments[j].completed === true) {
+                if(appointments[j].start === appointments[j].end) {
+                    startFound = true;
+                }
+                else if(appointments[j].end === "0") {
+                    delete appointments[j].end;
+                    console.log(appointments[j])
+                    endFound = true;
+                }
             }
         }
+        //if no start time has been set it will default to 9am
+        if(!startFound) {
+            var empStart = "09:00";  //start time set by employee
+            var startTime = empStart;
+            
+            //checks if there's an appointment at the very start of the shift
+            for (let i = 0; i < appointments.length; i++) {
+                if (appointments[i].start === empStart) {
+                    startTime = new Date('1970/01/01 ' + empStart);
+                    startTime = new Date(startTime.getTime() - 60000).toString().split(" ")[4].substring(0, 5);
+                    console.log(startTime)
+                    break;
+                }
+                else {
+                    startTime = empStart;
+                }
+            }
+            appointments.push({ start: startTime, end: startTime });
+        };
+        //if no end time has been set it will default to 5pm
+        if(!endFound) {
+            var empEnd = "17:00";   //end time set by employee
+            appointments.push({ start: empEnd });
+        }
 
-        appointments.push({ start: startTime, end: startTime });
-        appointments.push({ start: empEnd });
+
+
+        // var empStart = "09:00"  //start time set by employee
+        // var empEnd = "17:00"   //end time set by employee
+        // var startTime = empStart;
+
+        // //checks if there's an appointment at the very start of the shift
+        // for (let i = 0; i < appointments.length; i++) {
+        //     if (appointments[i].start === empStart) {
+        //         startTime = new Date('1970/01/01 ' + empStart);
+        //         startTime = new Date(startTime.getTime() - 60000).toString().split(" ")[4].substring(0, 5);
+        //         console.log(startTime)
+        //         break;
+        //     }
+        //     else {
+        //         startTime = empStart;
+        //     }
+        // }
+
+        // appointments.push({ start: startTime, end: startTime });
+        // appointments.push({ start: empEnd });
 
         console.log(appointments);
 

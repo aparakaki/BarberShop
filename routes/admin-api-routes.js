@@ -68,5 +68,12 @@ module.exports = function(app){
         }).then(function(data){
             res.json(data);
         })
+    });
+
+    app.post("/api/appointment", function(req, res) {
+        db.Appointment.create(req.body)
+        .then(function(data) {
+            res.json(data);
+        })
     })
 };
