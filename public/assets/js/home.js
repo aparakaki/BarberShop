@@ -13,15 +13,16 @@ $(document).ready(function () {
             //grab name from data to show on welcome sign
             // console.log(data);
             $(".user-name").text(data.name);
-    
+            displayAppts();
         });
     });
 
 
     var upcomingAppts = [];
 //upcoming appts display
+function displayAppts() {
     $.get("/api/history/" + userId + "/0", function (data) {
-        // console.log(data);
+        console.log(userId);
         upcomingAppts = data;
         for (var i = 0; i < data.length; i++) {
             let rowTr = $("<tr>").attr("scope", "row");
@@ -53,7 +54,9 @@ $(document).ready(function () {
         }
 
     });
+
     
+
     $.get("/api/history/" + userId + "/1", function (data) {
         // console.log(data);
         for (var i = 0; i < data.length; i++) {
@@ -62,7 +65,7 @@ $(document).ready(function () {
                 <tr>
                 <td>${convertDate(data[i].date)}</td>
                 <td>${data[i].Services[j].style}</td>
-                <td>${data[i].Services[j].time}min</td>
+                <td>${data[i].serviceLength}min</td>
                 <td>$${data[i].Services[j].price}</td>
                 </tr>
                 `)
@@ -70,7 +73,7 @@ $(document).ready(function () {
             }
         }
     });
-
+}
     var apptId;
 
     $(document).on("click", ".deleteBtn", function(event) {
