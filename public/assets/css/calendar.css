@@ -1,6 +1,15 @@
 
+body {
+    background-color: #EAEDED;
+    
+    
+}
+
+
 .container {
     padding: 20px;
+    padding-top: 50px;
+    
     
 }
 
@@ -18,8 +27,10 @@ ul, .time-slots {
 
 .weekdays {
     border: 1px solid black;
-    background-color: grey;
+    border-radius: 5px;
+    background-color: #007bff;;
     width: 80%;
+    color: white;
 }
 
 .weekdays li {
@@ -37,17 +48,18 @@ ul, .time-slots {
     background-color: white;
 }
 
-.days li:hover{
-    background-color:greenyellow;
+.hover:hover{
+    background-color:#fee169;
 }
 
-
+.old:hover{
+    background-color:#c4374d;
+}
 
 .available, .calendar, .your {
-    border: 2px solid white;
+    border: 1px solid black;
     border-radius: 10px;
-    background-color: #D5DBDB;
-    overflow: scroll;
+    background-color: #A6ACAF;
 
 }
 
@@ -68,7 +80,10 @@ ul, .time-slots {
     height: 50%;
 }
 
-.main, .available {
+
+.available {
+    margin-top: 10px;
+    overflow: auto;
     max-height: 50%;
-    
 }
+

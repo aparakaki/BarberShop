@@ -1,15 +1,23 @@
 
 $(document).ready(function () {
 
+    var today = new Date();
+
     for (var i = 1; i < 32; i++) {
         var day = $("<li>").text(i);
-        day.addClass("day")
+        day.addClass("day");
+        day.addClass("hover");
         if (i < 10) {
             day.attr("id", "2018-10-0" + i);
         } else {
             day.attr("id", "2018-10-" + i);
         }
-
+        var date = new Date(day.attr("id").replace(/-/g, "/"));
+        console.log(date);
+        if(date < today){
+            day.removeClass("hover");
+            day.addClass("old");
+        }
         $(".days").append(day);
     };
 
@@ -33,8 +41,15 @@ $(document).ready(function () {
         $(".your-service").append(yourServ);
     }
 
+    $(document).on("click", ".old", function(){
+        $(".morning").empty();
+        $(".afternoon").empty();
+            
+        $(".morning").append("<p>").html("<h5><i class='far fa-clock'></i> AM</h5> <br> No available Times");
+        $(".afternoon").append("<p>").html("<h5><i class='fas fa-clock'></i> PM</h5> <br> No available Times");
+    });
 
-    $(document).on("click", ".day", function (event) {
+    $(document).on("click", ".hover", function (event) {
         event.preventDefault();
         chosenDate = $(this).attr("id");
         //make get request for time slots and post the ones that apply 
@@ -57,7 +72,7 @@ $(document).ready(function () {
 
             for (let i = 0; i < timesArray.length; i++) {
                 let temp = convertTime(timesArray[i])
-                let timeBtn = $("<button>").addClass("btn btn-info time-btn")
+                let timeBtn = $("<button>").addClass("btn btn-primary time-btn")
                     .attr("data-id", i).text(temp)
                     .attr("data-toggle", "modal")
                     .attr("data-target", "#scheduleModal");

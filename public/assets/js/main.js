@@ -39,6 +39,8 @@ $(document).on("click", "#tabletCheckOut", function (e) {
     type: "POST",
     data: signOutTime
   }).then(function (data){
+    console.log(data);
+    
   })
 });
 
