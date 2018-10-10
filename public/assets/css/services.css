@@ -1,19 +1,30 @@
 body {
-    background-color: #EAEDED;
+    
+    background-image: url(../img/barbershop.jpg);
+    background-size: cover;
     
     
 }
 
-.container {
+.large {
     margin: auto;
     padding: 20px;
     margin-top: 1%; 
 }
 
+.top-bar {
+    margin-top: 10px;
+}
+.logout {
+    margin-left: 5px;
+}
+
 .services {
     border: 1px solid black;
     border-radius: 10px;
-    background-color: #A6ACAF;
+    background-color: rgba(166,172,175, .8);
+    padding-bottom: 20px;
+    padding-top: 10px;
 
 }
 
@@ -34,7 +45,7 @@ h2 {
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 5px;
-    background-color: #A6ACAF;
+    background-color: rgba(166,172,175, .9);
 }
 
 .chosen {

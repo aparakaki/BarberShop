@@ -6,7 +6,7 @@ $(document).ready(function () {
     var serviceDel;
 
     getServices();
-    // $(".chosen").hide();
+    $(".done-selecting").hide();
 
     $(document).on("click", ".service-select", function () {
         var thisid = $(this).data("id")
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 break;
             }
         }
-        // $(".chosen").show();
+        $(".done-selecting").show();
 
         if (!found) {
             $.get("/api/services", function (data) {
@@ -44,7 +44,7 @@ $(document).ready(function () {
                 `)
                     $(".selected").append(selected);
                     $(".totals").html("<h3> Totals </h3> Total Time: " + totalTime + "min <br> Total Price: $" + totalPrice)
-                    var done = $("<a href = '#' class = 'done' ><button class = 'btn btn-primary done'><i class='far fa-calendar-alt'></i> See Available Appintments</button></a>");
+                    var done = $("<a href = '/calendar' class = 'done' ><button class = 'btn btn-primary done'><i class='far fa-calendar-alt'></i> See Available Appintments</button></a>");
                     $(".done-selecting").html(done);
                 }
             });
@@ -53,12 +53,8 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".done", function () {
-        // if (serviceSelected.length === 0) {
-        //     alert("select a service")
-
-        // } else {
-        // }
-        $(".done").attr("href", "/calendar");
+    
+        // $(".done").attr("href", "/calendar");
 
         sessionStorage.setItem("serviceSelected", JSON.stringify(serviceSelected));
         sessionStorage.setItem("servicePrice", totalPrice);

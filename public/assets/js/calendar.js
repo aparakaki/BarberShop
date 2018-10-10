@@ -2,15 +2,32 @@
 $(document).ready(function () {
 
     var today = new Date();
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var days = ["Sunday", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
+    var month = months[today.getMonth()];
+    var day = days[today.getDay()];
+    var fullDate = day + " " + month + " " + today.getDate() + " " + today.getHours() + ":" + today.getMinutes();
 
+    $(".today").append(fullDate);
+
+    var adminMonth = "October"// grab from user input
+    $(".admin-month").text(adminMonth);
+    var cutMonth = adminMonth.slice(0, 3)
+    var adminMonthNum =   months.indexOf(cutMonth) + 1;
+
+    console.log(months.indexOf(cutMonth) + 1);
+    
+    var lastday = $("<li>").text(31);
+    $(".days").append(lastday);
     for (var i = 1; i < 32; i++) {
+        
         var day = $("<li>").text(i);
         day.addClass("day");
         day.addClass("hover");
         if (i < 10) {
-            day.attr("id", "2018-10-0" + i);
+            day.attr("id", "2018-" + adminMonthNum + "-0" + i);
         } else {
-            day.attr("id", "2018-10-" + i);
+            day.attr("id", "2018-" + adminMonthNum + "-" + i);
         }
         var date = new Date(day.attr("id").replace(/-/g, "/"));
         console.log(date);
@@ -18,6 +35,7 @@ $(document).ready(function () {
             day.removeClass("hover");
             day.addClass("old");
         }
+        
         $(".days").append(day);
     };
 

@@ -1,19 +1,31 @@
 
 body {
-    background-color: #EAEDED;
+    background-image: url(../img/barbershop.jpg);
+    background-size: cover;
     
     
 }
 
 
-.container {
+.large {
     padding: 20px;
     padding-top: 50px;
     
     
 }
+.top-bar {
+    margin-top: 10px;
+}
+.logout {
+    margin-left: 5px;
+}
 
-.service, .month, .time, .time-slots {
+.today {
+    margin-right: 5px;
+    
+}
+
+.service, .admin-month, .time, .time-slots {
     text-align: center;
 
 }
@@ -59,7 +71,8 @@ ul, .time-slots {
 .available, .calendar, .your {
     border: 1px solid black;
     border-radius: 10px;
-    background-color: #A6ACAF;
+    /* background-color: #A6ACAF; */
+    background-color: rgba(166,172,175, .8);
 
 }
 
