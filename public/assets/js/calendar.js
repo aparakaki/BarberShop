@@ -13,14 +13,14 @@ $(document).ready(function () {
     var adminMonth = "October"// grab from user input
     $(".admin-month").text(adminMonth);
     var cutMonth = adminMonth.slice(0, 3)
-    var adminMonthNum =   months.indexOf(cutMonth) + 1;
+    var adminMonthNum = months.indexOf(cutMonth) + 1;
 
     console.log(months.indexOf(cutMonth) + 1);
-    
+
     var lastday = $("<li>").text(31);
     $(".days").append(lastday);
     for (var i = 1; i < 32; i++) {
-        
+
         var day = $("<li>").text(i);
         day.addClass("day");
         day.addClass("hover");
@@ -31,11 +31,11 @@ $(document).ready(function () {
         }
         var date = new Date(day.attr("id").replace(/-/g, "/"));
         console.log(date);
-        if(date < today){
+        if (date < today) {
             day.removeClass("hover");
             day.addClass("old");
         }
-        
+
         $(".days").append(day);
     };
 
@@ -52,17 +52,17 @@ $(document).ready(function () {
     var chosenDate;
     var apptTime;
 
-    for (var i=0; i<selectService.length; i++){
+    for (var i = 0; i < selectService.length; i++) {
         var yourServ = $("<div>").append(`
         ${selectService[i].style} ${selectService[i].time} min
         `)
         $(".your-service").append(yourServ);
     }
 
-    $(document).on("click", ".old", function(){
+    $(document).on("click", ".old", function () {
         $(".morning").empty();
         $(".afternoon").empty();
-            
+
         $(".morning").append("<p>").html("<h5><i class='far fa-clock'></i> AM</h5> <br> No available Times");
         $(".afternoon").append("<p>").html("<h5><i class='fas fa-clock'></i> PM</h5> <br> No available Times");
     });
@@ -83,23 +83,29 @@ $(document).ready(function () {
             // console.log(data);
             timesArray = getTimeSlots(sortTimeData(data));
             console.log(timesArray);
-            var morn = $("<h5>").html("<i class='far fa-clock'></i> AM");
-            var after = $("<h5>").html("<i class='fas fa-clock'></i> PM");
-            $(".morning").append(morn);
-            $(".afternoon").append(after);
+            if (timesArray.length === 0) {
+                $(".morning").append("<p>").html("<h5><i class='far fa-clock'></i> AM</h5> <br> No available Times");
+                $(".afternoon").append("<p>").html("<h5><i class='fas fa-clock'></i> PM</h5> <br> No available Times");
+            }
+            else {
+                var morn = $("<h5>").html("<i class='far fa-clock'></i> AM");
+                var after = $("<h5>").html("<i class='fas fa-clock'></i> PM");
+                $(".morning").append(morn);
+                $(".afternoon").append(after);
 
-            for (let i = 0; i < timesArray.length; i++) {
-                let temp = convertTime(timesArray[i])
-                let timeBtn = $("<button>").addClass("btn btn-primary time-btn")
-                    .attr("data-id", i).text(temp)
-                    .attr("data-toggle", "modal")
-                    .attr("data-target", "#scheduleModal");
-                let btnDiv = $("<div>").append(timeBtn);
-                if (temp.slice(-2) === "am") {
-                    $(".morning").append(btnDiv);
-                }
-                else {
-                    $(".afternoon").append(btnDiv);
+                for (let i = 0; i < timesArray.length; i++) {
+                    let temp = convertTime(timesArray[i])
+                    let timeBtn = $("<button>").addClass("btn btn-primary time-btn")
+                        .attr("data-id", i).text(temp)
+                        .attr("data-toggle", "modal")
+                        .attr("data-target", "#scheduleModal");
+                    let btnDiv = $("<div>").append(timeBtn);
+                    if (temp.slice(-2) === "am") {
+                        $(".morning").append(btnDiv);
+                    }
+                    else {
+                        $(".afternoon").append(btnDiv);
+                    }
                 }
             }
         });
@@ -113,7 +119,7 @@ $(document).ready(function () {
         var time = convertTime(apptTime);
         var date = convertDate(chosenDate);
         console.log(apptTime);
-        
+
         $("#book-apt").show();
         $(".cancel").show();
         $(".home").hide();
@@ -150,7 +156,7 @@ $(document).ready(function () {
                     console.log(data);
                 });
             }
-            
+
             var date = convertDate(chosenDate);
             $(".modal-body").html(`
                 Your appointment on ${date} has been booked! 
@@ -158,7 +164,7 @@ $(document).ready(function () {
             $(".modal-title").text("Thank You!")
             $("#book-apt").hide();
             $(".cancel").hide();
-            var home = $("<a href = '/userHome'><button class = 'btn btn-info home'>Back To Home</button></a>");
+            var home = $("<a href = '/userHome'><button class = 'btn btn-warning home'>Back To Home</button></a>");
             $(".modal-footer").append(home);
         })
     });
@@ -169,12 +175,12 @@ $(document).ready(function () {
         //checks if start and end times for the day have been set by the admin
         var startFound = false;
         var endFound = false;
-        for(let j = 0; j < appointments.length; j++) {
-            if(appointments[j].completed === true) {
-                if(appointments[j].start === appointments[j].end) {
+        for (let j = 0; j < appointments.length; j++) {
+            if (appointments[j].completed === true) {
+                if (appointments[j].start === appointments[j].end) {
                     startFound = true;
                 }
-                else if(appointments[j].end === "0") {
+                else if (appointments[j].end === "0") {
                     delete appointments[j].end;
                     console.log(appointments[j])
                     endFound = true;
@@ -182,10 +188,10 @@ $(document).ready(function () {
             }
         }
         //if no start time has been set it will default to 9am
-        if(!startFound) {
+        if (!startFound) {
             var empStart = "09:00";  //start time set by employee
             var startTime = empStart;
-            
+
             //checks if there's an appointment at the very start of the shift
             for (let i = 0; i < appointments.length; i++) {
                 if (appointments[i].start === empStart) {
@@ -201,7 +207,7 @@ $(document).ready(function () {
             appointments.push({ start: startTime, end: startTime });
         };
         //if no end time has been set it will default to 5pm
-        if(!endFound) {
+        if (!endFound) {
             var empEnd = "17:00";   //end time set by employee
             appointments.push({ start: empEnd });
         }
@@ -299,7 +305,7 @@ $(document).ready(function () {
     };
 
     function convertDate(inDate) {
-        var newDate = inDate.split("-")[1] + "/" +inDate.split("-")[2] + "/" +inDate.split("-")[0]
+        var newDate = inDate.split("-")[1] + "/" + inDate.split("-")[2] + "/" + inDate.split("-")[0]
         return newDate;
     };
 });
