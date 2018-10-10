@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="../assets/css/admin.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
 </head>
 
-<body>
+<body class="adminSolid">
     <div id="wrapper">
 
         <!-- Sidebar -->
@@ -52,18 +54,18 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12"> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <div class="col-sm-3 col-md-1 col-lg-1">
+                        <a href="#menu-toggle" class="btn btn-dark" id="menu-toggle"><i class="fas fa-bars"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-md-6 col-lg-10">
                         <h1>Current Appointments</h1>
                         <p></p>
-                        <!-- <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p> -->
-                        <!-- first row -->
-                        <div class="container">
-                            <div class="row">
-                                <select id="dropdown1" class="browser-default dropdown-disp">
-                                    <option class="dropdown-disp" value="pick a date" selected>Select Date</option>
-                                </select>
-                            </div>
-
+                    </div>
+                    
+                    <div class="col-sm-3 col-md-2 col-lg-1">
+                        <a href="/logout"><button class="btn btn-danger">logout</button></a>
+                    </div>
+                </div>
 
                             <table class="table table-hover">
                                 <thead>

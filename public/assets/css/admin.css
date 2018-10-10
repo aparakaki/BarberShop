@@ -169,3 +169,13 @@
 h1 {
    color:white; 
 }
+
+.adminSolid{
+    background-color: 
+    rgba(157,157,157,1.3);
+}
+
+.adminStripe{
+    background:
+    linear-gradient(to bottom, rgba(157,157,157,1.3), rgba(157,157,157,.2));
+}
