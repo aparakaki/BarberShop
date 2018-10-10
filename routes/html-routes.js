@@ -2,14 +2,123 @@ var path = require("path");
 var db = require("../models");
 
 module.exports = function (app) {
-    app.get("/", function (req, res) {
+    app.get("/servicesTwo", function (req, res) {
+        if (req.session.user) {
+            res.sendFile(path.join(__dirname, "../public/services.html"));
+        }
+        else {
+            res.redirect("/loginPage");
+        }
+    });
+
+    // routes for admin
+   
+    app.get("/adminCurrentAppt", function (req, res) {
+        if (req.session.user) {
+            if (req.session.user.admin === true) {
+                res.sendFile(path.join(__dirname, "../public/admin/current-appointments.html"));
+            }
+            else {
+                res.redirect("/loginPage");
+            }
+        }
+        else {
+            res.redirect("/loginPage");
+        }
+    });
+
+    app.get("/adminCreateServices", function (req, res) {
+        if (req.session.user) {
+            if (req.session.user.admin === true) {
+                res.sendFile(path.join(__dirname, "../public/admin/create-service.html"));
+            }
+            else {
+                res.redirect("/loginPage");
+            }
+        }
+        else {
+            res.redirect("/loginPage");
+        }
+    });
+
+    app.get("/adminHome", function (req, res) {
+        if (req.session.user) {
+            if (req.session.user.admin === true) {
+                res.sendFile(path.join(__dirname, "../public/admin/admin-home.html"));
+            }
+            else {
+                res.redirect("/loginPage");
+            }
+        }
+        else {
+            res.redirect("/loginPage");
+        }
+    });
+
+    // routes for user pages
+    //sending html indexes into its place
+
+    // app.get("/userHome", function (req, res) {
+    //     if (req.session.user) {
+    //         if (req.session.user.admin === false) {
+    //             res.sendFile(path.join(__dirname, "../public/home-page/history.html"));
+    //         }
+    //         else {
+    //             res.redirect("/loginPage");
+    //         }
+    //     }
+    //     else {
+    //         res.redirect("/loginPage");
+    //     }
+    // });
+
+    app.get("/userHistory", function (req, res) {
+        if (req.session.user) {
+            if (req.session.user.admin === false) {
+                res.sendFile(path.join(__dirname, "../public/home-page/history.html"));
+            }
+            else {
+                res.redirect("/loginPage");
+            }
+        }
+        else {
+            res.redirect("/loginPage");
+        }
+    });
+
+    app.get("/userUpcomingAppt", function (req, res) {
+        if (req.session.user) {
+            if (req.session.user.admin === false) {
+                res.sendFile(path.join(__dirname, "../public/home-page/upcoming-appt.html"));
+            }
+            else {
+                res.redirect("/loginPage");
+            }
+        }
+        else {
+            res.redirect("/loginPage");
+        }
+    });
+
+    //
+    app.get("/calendar", function (req, res) {
+        if (req.session.user) {
+            res.sendFile(path.join(__dirname, "../public/calendar.html"));
+        }
+        else {
+            res.redirect("/loginPage");
+        }
+    });
+
+    //login routes
+    app.get("/loginPage", function (req, res) {
         if (req.session.user) {
             console.log("1");
             if (req.session.user.admin === true) {
-                res.redirect("/adminHome");
+                res.redirect("/adminCurrentAppt");
             }
             else {
-                res.redirect("/userHome");
+                res.redirect("/userUpcomingAppt");
             }
         }
         else if (req.headers.cookie) {
@@ -28,130 +137,24 @@ module.exports = function (app) {
                             admin: data.dataValues.admin
                         }
                         console.log("2.5");
-                        return res.redirect("/userHome");
+                        return res.redirect("/userHistory");
                     }
                     console.log("3");
                     res.clearCookie("token");
-                    res.redirect("/");
+                    res.redirect("/loginPage");
                 });
             }
             else {
                 console.log("4");
-                res.sendFile(path.join(__dirname, "../index.html"));
+                res.sendFile(path.join(__dirname, "../public/login.html"));
             }
         }
         else {
             console.log("5");
-            res.sendFile(path.join(__dirname, "../index.html"));
+            res.sendFile(path.join(__dirname, "../public/login.html"));
         }
     });
 
-    app.get("/servicesTwo", function (req, res) {
-        if (req.session.user) {
-            res.sendFile(path.join(__dirname, "../public/services.html"));
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-
-    // routes for admin
-    app.get("/adminHome", function (req, res) {
-        if (req.session.user) {
-            if (req.session.user.admin === true) {
-                res.sendFile(path.join(__dirname, "../public/admin/admin-home.html"));
-            }
-            else {
-                res.redirect("/");
-            }
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-    app.get("/adminCurrentAppt", function (req, res) {
-        if (req.session.user) {
-            if (req.session.user.admin === true) {
-                res.sendFile(path.join(__dirname, "../public/admin/current-appointments.html"));
-            }
-            else {
-                res.redirect("/");
-            }
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-
-    app.get("/adminCreateServices", function (req, res) {
-        if (req.session.user) {
-            if (req.session.user.admin === true) {
-                res.sendFile(path.join(__dirname, "../public/admin/create-service.html"));
-            }
-            else {
-                res.redirect("/");
-            }
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-
-    // routes for user pages
-    //sending html indexes into its place
-    app.get("/userHome", function (req, res) {
-        if (req.session.user) {
-            if (req.session.user.admin === false) {
-                res.sendFile(path.join(__dirname, "../public/home-page/home-page.html"));
-            }
-            else {
-                res.redirect("/");
-            }
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-
-    app.get("/userHistory", function (req, res) {
-        if (req.session.user) {
-            if (req.session.user.admin === false) {
-                res.sendFile(path.join(__dirname, "../public/home-page/history.html"));
-            }
-            else {
-                res.redirect("/");
-            }
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-
-    app.get("/userUpcomingAppt", function (req, res) {
-        if (req.session.user) {
-            if (req.session.user.admin === false) {
-                res.sendFile(path.join(__dirname, "../public/home-page/upcoming-appt.html"));
-            }
-            else {
-                res.redirect("/");
-            }
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-
-    //
-    app.get("/calendar", function (req, res) {
-        if (req.session.user) {
-            res.sendFile(path.join(__dirname, "../public/calendar.html"));
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-
-    //login routes
     app.post("/login", function (req, res) {
         db.User.findOne({
             where: {
@@ -179,7 +182,7 @@ module.exports = function (app) {
                     password: req.body.password,
                     admin: data.dataValues.admin
                 }
-                return res.redirect("/");
+                return res.redirect("/loginPage");
             }
             res.redirect("/userNotFound");
         });
@@ -193,7 +196,13 @@ module.exports = function (app) {
     });
 
     app.get("/userNotFound", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/userNotFound.html"))
+        if (req.session.user === undefined) {
+            console.log(req.session.user);
+            res.sendFile(path.join(__dirname, "../public/userNotFound.html"))
+        }
+        else {
+            res.redirect("/loginPage");
+        }
     });
 
     app.post("/createLogin", function (req, res) {
@@ -207,7 +216,7 @@ module.exports = function (app) {
                 password: req.body.password,
                 admin: false
             }
-            res.redirect("/");
+            res.redirect("/loginPage");
         })
     });
 
@@ -312,33 +321,8 @@ module.exports = function (app) {
                     });
             })
         })
-
-        //     db.User.findOne({
-        //         where: {
-        //             userName: req.body.userName
-        //         }
-        //     }).then(function (data) {
-        //         var userId = data.dataValues.id;
-        //         db.Appointment.findOne({
-        //             where: {
-        //                 UserId: userId
-        //             }
-        //         }).then(function (response) {
-        //             var userStartTime = response.dataValues.serviceStart;
-        //             var userEndTime = parseInt(req.body.endTime);
-        //             var totalTime = userEndTime - userStartTime
-        //             db.Appointment.update({
-        //                 serviceEnd: userEndTime,
-        //                 serviceLength: totalTime,
-        //                 completed: true
-        //             }, {
-        //                     where: {
-        //                         UserId: userId
-        //                     }
-        //                 }).then(function (data) {
-        //                     res.json(data);
-        //                 });
-        //         })
-        //     });
+    });
+    app.get("/*", function (req, res) {
+        res.redirect("/loginPage");
     });
 }

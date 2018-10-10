@@ -1,8 +1,8 @@
 var db = require("../models");
 
 
-module.exports = function(app){
-    app.get("/api/appointments/:complete", function(req, res){
+module.exports = function (app) {
+    app.get("/api/appointments/:complete", function (req, res) {
         db.Appointment.findAll({
             where: {
                 completed: req.params.complete
@@ -31,13 +31,15 @@ module.exports = function(app){
 
     // set local storage
     app.get("/setLocalStorage", function (req, res) {
-        db.User.findOne({
-            where: {
-                username: req.session.user.username
-            }
-        }).then(function (data){
-            res.json(data);
-        })
+        if (req.session.user) {
+            db.User.findOne({
+                where: {
+                    username: req.session.user.username
+                }
+            }).then(function (data) {
+                res.json(data);
+            })
+        }
     });
 
     app.get("/setLocalStorageAdmin", function (req, res) {
@@ -45,35 +47,35 @@ module.exports = function(app){
             where: {
                 username: req.session.user.username
             }
-        }).then(function (data){
+        }).then(function (data) {
             res.json(data);
         })
     });
 
-    app.delete("/api/services/delete", function(req, res){
+    app.delete("/api/services/delete", function (req, res) {
         console.log(req.body);
         db.Service.destroy({
-            where: {id: req.body.id}
-        }).then(function(data){
+            where: { id: req.body.id }
+        }).then(function (data) {
             res.json(data);
         });
     });
 
 
-    app.put("/api/services/edit", function(req, res){
+    app.put("/api/services/edit", function (req, res) {
         db.Service.update({
             price: req.body.newPrice
-        },{
-            where: {id: req.body.id}
-        }).then(function(data){
-            res.json(data);
-        })
+        }, {
+                where: { id: req.body.id }
+            }).then(function (data) {
+                res.json(data);
+            })
     });
 
-    app.post("/api/appointment", function(req, res) {
+    app.post("/api/appointment", function (req, res) {
         db.Appointment.create(req.body)
-        .then(function(data) {
-            res.json(data);
-        })
+            .then(function (data) {
+                res.json(data);
+            })
     })
 };
