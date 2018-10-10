@@ -249,6 +249,10 @@ $(document).ready(function () {
       })
     })
 
+    $("#dateInput").val("");
+    $("#startInput").val("");
+    $("#endInput").val("");
+
   });
 
   function convertTime2(input, x) {
