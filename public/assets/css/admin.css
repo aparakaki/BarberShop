@@ -211,3 +211,9 @@ h1 {
 .marginAdjustment {
     margin-top: 50px;
 }
+
+.adminSolid{
+    background-color: 
+    rgba(157,157,157,0.4);
+}
+

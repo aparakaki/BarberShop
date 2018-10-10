@@ -1,4 +1,3 @@
-// passwords match validation
 function validatePasswords() {
   var pass1 = document.getElementById("createPassword1").value;
   var pass2 = document.getElementById("createPassword2").value;
@@ -19,27 +18,35 @@ $(document).on("click", "#tabletCheckIn", function (e) {
     userName: $("#idTablet").val().trim(),
     startTime: (Date.now()) / 1000 / 60
   }
-  console.log(signInTime);
-  $.ajax("/haircutStartTime", {
+  console.log(signInTime);  
+  // signInMsg();
+// setTimeout(alert('hello'),10000);
+ $("#idTablet").val("");
+ $(".insertMessage").append("<p><br><br>Thank you for signing in!<br></p>");
+ setTimeout(emptyVals, 3000);
+ $.ajax("/haircutStartTime", {
     type: "POST",
     data: signInTime
   }).then(function (data){
+  
   })
 });
 
-// tablet check out time
+
 $(document).on("click", "#tabletCheckOut", function (e) {
   event.preventDefault();
   let signOutTime = {
     userName: $("#idTabletTwo").val().trim(),
     endTime: (Date.now()) / 1000 / 60
   }
-  console.log(signOutTime);
+  $("#idTabletTwo").val("");  
+  
+  $(".insertMessage").append("<p><br><br>Thank you for signing out!<br></p>");
+  setTimeout(emptyVals, 3000);
   $.ajax("/haircutEndTime", {
     type: "POST",
     data: signOutTime
   }).then(function (data){
-    console.log(data);
     
   })
 });
@@ -63,3 +70,10 @@ function slideUpIn() {
     shake();
   });
   //
+
+
+
+  function emptyVals(){
+      
+    $(".insertMessage").empty();
+  }
