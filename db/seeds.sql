@@ -11,7 +11,11 @@ INSERT INTO Users (name, username, password, admin) VALUES
 ("Tom", "tom123", 234567, false),
 ("Alex", "alex123", 234567, false),
 ("Blake", "blake123", 234567, false),
-("James", "james123", 234567, false);
+("James", "james123", 234567, false),
+("Kyle", "kyle123", 234567, false),
+("Robert", "robert123", 234567, false),
+("Mario", "mario123", 234567, false),
+("Brendan", "brendan123", 234567, false);
 
 INSERT INTO Services (style, time, price, description)
 VALUES ("Basic Cut", 40, 21, "Scissor cut with shampoo and neck shave"), 
@@ -28,19 +32,23 @@ INSERT INTO Appointments (date, start, end, UserId, completed, serviceLength) VA
 ("2018-06-07", "11:30", "12:10", 3, true, 38);
 
 INSERT INTO Appointments (date, start, end, UserId, completed) VALUES
-("2018-10-11", "13:40", "14:15", 3, false),
+("2018-10-11", "13:40", "14:15", 9, false),
 ("2018-10-13", "10:30", "11:10", 4, false),
 ("2018-10-13", "11:30", "11:50", 5, false),
 ("2018-10-13", "12:40", "13:20", 6, false),
 ("2018-10-13", "09:30", "10:15", 7, false),
 ("2018-10-12", "13:00", "13:15", 8, false),
-("2018-10-11", "11:30", "12:10", 9, false),
+("2018-10-11", "11:30", "12:10", 3, false),
 ("2018-10-11", "15:30", "15:50", 10, false),
 ("2018-10-12", "10:30", "11:00", 11, false),
 ("2018-10-15", "11:45", "12:05", 12, false),
 ("2018-10-15", "09:30", "10:15", 13, false),
-("2018-10-15", "10:30", "10:50", 4, false);
+("2018-10-15", "10:30", "10:50", 4, false),
+("2018-10-12", "09:40", "10:20", 14, false),
+("2018-10-12", "13:45", "14:15", 15, false),
+("2018-10-13", "13:40", "14:00", 16, false),
+("2018-10-13", "09:15", "09:30", 17, false);
 
 INSERT INTO Details (AppointmentId, serviceId) VALUES
 (1, 1), (2, 5), (3, 2), (4, 1), (5, 3), (6, 5), (6, 3), (7, 6), (8, 1), (9, 4), (9, 5),
-(10, 5), (11, 1), (12, 6), (13, 4), (14, 3), (15, 1), (16, 6);
+(10, 5), (11, 1), (12, 6), (13, 4), (14, 3), (15, 1), (16, 6), (17, 1), (18, 4), (19, 6), (20, 5);

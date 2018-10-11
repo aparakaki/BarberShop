@@ -219,11 +219,38 @@ $(document).ready(function () {
   //Set schedule times
   $("#submitNewSchedule").on("click", function(event) {
     event.preventDefault();
+    $("#disp-msg").empty();
+
     var dateIn = $("#dateInput").val().trim();
     var startIn = $("#startInput").val().trim();
     var btn1 = $("input:radio[name='group1']:checked").val();
     var endIn = $("#endInput").val().trim();
     var btn2 = $("input:radio[name='group2']:checked").val();
+    console.log(dateIn);
+    
+    if($("#checkboxIn").is(':checked') && dateIn != "") {
+      updateSchedule(dateIn, "0:0", "0:0", "am", "am");
+    }
+    else if(dateIn === "" || startIn === "" || endIn === "" || !$("input:radio[name='group1']").is(':checked') ||!$("input:radio[name='group2']").is(':checked')) {
+      $("#disp-msg").empty();
+      $("#disp-msg").append($("<p>").addClass("disp-msg-alert").text("Please complete all fields"));
+    }
+    else {
+      updateSchedule(dateIn, startIn, endIn, btn1, btn2);
+    }
+    
+  });
+  
+  function updateSchedule(dateIn, startIn, endIn, btn1, btn2) {
+    $("#checkboxIn").prop("checked", false);
+    $("#btn1").prop("checked", false);
+    $("#btn2").prop("checked", false);
+    $("#btn3").prop("checked", false);
+    $("#btn4").prop("checked", false);
+
+    $("#dateInput").val("");
+    $("#startInput").val("");
+    $("#endInput").val("");
 
     var dateInput = dateIn.split("/")[2] + "-" + dateIn.split("/")[0] + "-" + dateIn.split("/")[1];
     var startTime = convertTime2(startIn,btn1);
@@ -246,30 +273,25 @@ $(document).ready(function () {
       console.log(data);
       $.post("/api/appointment", obj2, function(data) {
         console.log(data);
+        $("#disp-msg").empty();
+        $("#disp-msg").append($("<p>").addClass("disp-msg-success")
+        .text("Your schedule for " + dateIn + " has been updated"));
       })
     })
-
-    $("#dateInput").val("");
-    $("#startInput").val("");
-    $("#endInput").val("");
-
-  });
+  }
 
   function convertTime2(input, x) {
     var newTime;
     var temp = input.split(":")[0];
-    console.log(temp);
 
     if( (x === "pm" && temp < 12) ){
       temp = parseInt(temp) + 12;
     }
     else if (temp.length < 2) {
       temp = "0" + temp;
-      console.log(temp);
     }
 
     newTime = temp + ":" + input.split(":")[1];
-    console.log(newTime);
     return newTime;
   }
 });

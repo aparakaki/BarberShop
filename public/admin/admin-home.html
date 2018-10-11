@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../assets/css/admin.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
 </head>
 
@@ -21,7 +21,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Welcome <span class = "user-name"></span>!
+                        Welcome <span class="user-name"></span>!
                     </a>
                 </li>
                 <li>
@@ -36,20 +36,20 @@
             </ul>
         </div>
         <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-3 col-md-1 col-lg-1">
-                            <a href="#menu-toggle" class="btn btn-dark" id="menu-toggle"><i class="fas fa-bars"></i></a>
-                        </div>
-                        <div class="col-sm-3 col-md-6 col-lg-10">
-                            <h1>Set Daily Schedule</h1>
-                            <p></p>
-                        </div>
-                  
-                        <div class="col-sm-3 col-md-2 col-lg-1">
-                            <a href="/logout"><button class="btn btn-danger">logout</button></a>
-                        </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-md-1 col-lg-1">
+                        <a href="#menu-toggle" class="btn btn-dark" id="menu-toggle"><i class="fas fa-bars"></i></a>
                     </div>
+                    <div class="col-sm-3 col-md-6 col-lg-10">
+                        <h1>Set Daily Schedule</h1>
+                        <p></p>
+                    </div>
+
+                    <div class="col-sm-3 col-md-2 col-lg-1">
+                        <a href="/logout"><button class="btn btn-danger">logout</button></a>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
@@ -61,17 +61,23 @@
                             <div class="form-group">
                                 <label for="startInput">Start time</label>
                                 <input class="form-control" id="startInput" placeholder="HH:MM">
-                                <label><input type="radio" name="group1" class=".radio-inline" value="am"> am</label>
-                                <label><input type="radio" name="group1" class=".radio-inline" value="pm"> pm</label>
+                                <label><input id="btn1" type="radio" name="group1" class=".radio-inline" value="am"> am</label>
+                                <label><input id="btn2" type="radio" name="group1" class=".radio-inline" value="pm"> pm</label>
                             </div>
                             <div class="form-group">
                                 <label for="endInput">End time</label>
                                 <input class="form-control" id="endInput" placeholder="HH:MM">
-                                <label><input type="radio" name="group2" class=".radio-inline" value="am"> am</label>
-                                <label><input type="radio" name="group2" class=".radio-inline" value="pm"> pm</label>
+                                <label><input id="btn3" type="radio" name="group2" class=".radio-inline" value="am"> am</label>
+                                <label><input id="btn4" type="radio" name="group2" class=".radio-inline" value="pm"> pm</label>
                             </div>
+                            <div class="checkbox">
+                                <label><input id="checkboxIn" type="checkbox" value="">Closed for the day</label>
+                            </div>
+                            <br>
                             <button id="submitNewSchedule" type="submit" class="btn btn-primary">Submit</button>
                         </form>
+                        <br>
+                        <div id="disp-msg"></div>
                     </div>
                     <div class="col-md-4"></div>
                 </div>

@@ -217,3 +217,12 @@ h1 {
     rgba(157,157,157,0.4);
 }
 
+.disp-msg-alert {
+    color: #c4374d;
+    font-weight: bold;
+}
+
+.disp-msg-success {
+    color: #1061ed;
+    font-weight: bold;
+}
