@@ -197,7 +197,7 @@ h1 {
     height: 500px;
     display: block;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     padding: 0px;
 }
 
