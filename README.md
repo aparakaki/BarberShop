@@ -12,6 +12,14 @@ The estimated time it takes to cut a specific hairstyle is calculated by averagi
 
 On our website, the login system utilizes express-sessions and automatically detects the user's status (i.e. admin or customer) to route them accordingly. Barbers have the ability to view their appointment schedules and set their days off. Customers are able to view available appointments, and the website allows them to secure the spot only if the time it takes to complete the requested haircut style fits into an open timeslot.
 
+Log in as an Admin: 
+- Username: clark123
+- Password: 123456
+
+Log in as a Customer: 
+- Username: john123
+- Password: 234567
+
 Other tecnologies utilized in this application include: <br>
 ![Portfolio About](public/assets/img/html1.png)
 ![Portfolio About](public/assets/img/css2.jpg)
