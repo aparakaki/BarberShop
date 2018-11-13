@@ -77,5 +77,21 @@ module.exports = function (app) {
             .then(function (data) {
                 res.json(data);
             })
-    })
+    });
+
+    app.get("/api/services/:id/:complete", function (req, res) {
+        db.Appointment.findAll({
+            where: {
+                completed: req.params.complete
+            },
+            include: [{
+                model: db.Service,
+                where: {
+                    id: req.params.id
+                }
+            }]
+        }).then(data => {
+            res.json(data);        
+        })
+    });
 };

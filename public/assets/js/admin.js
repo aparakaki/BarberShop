@@ -198,6 +198,21 @@ $(document).ready(function () {
 
   $(document).on("click", ".del-serv", function () {
     deleteId = $(this).data("id");
+    $.ajax(`/api/services/${deleteId}/0`, {type: "GET"})
+      .then( data => {
+        if(data.length > 0) {
+          $(".modal-body").html("Service cannot be deleted.<br>There are existing appointments of this service.");
+        }
+        else {
+          $(".modal-body").text("Are you sure you want to delete this service?");
+          $(".modal-footer").append(
+            $("<button>")
+              .attr("type", "button")
+              .attr("id", "deleteConfirm")
+              .addClass("btn btn-primary")
+              .text("Yes, Delete"))
+        }
+      })
   });
 
   var deleteId;
