@@ -380,7 +380,7 @@
 		.login-html .sign-in,
 		.login-html .sign-up,
 		.login-form .group .check{
-			display:none;
+			display:none !important;
 		}
 		.login-html .tab,
 		.login-form .group .label,
