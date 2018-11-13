@@ -2,35 +2,87 @@
 $(document).ready(function () {
 
     var today = new Date();
-    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var days = ["Sunday", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
     var month = months[today.getMonth()];
+    var cutMonth = month.slice(0, 3)
     var day = days[today.getDay()];
-    var fullDate = day + " " + month + " " + today.getDate() + " " + today.getHours() + ":" + today.getMinutes();
-
+    var thisyear = today.getFullYear();
+    var minutes = today.getMinutes();
+    if(minutes < 10){
+        minutes = `0${minutes}`;
+    }
+    var fullDate = `${day} ${cutMonth} ${today.getDate()} ${thisyear} ${today.getHours()}:${minutes}`
+    
     $(".today").append(fullDate);
+    
+    
 
-    var adminMonth = "October"// grab from user input
-    $(".admin-month").text(adminMonth);
-    var cutMonth = adminMonth.slice(0, 3)
-    var adminMonthNum = months.indexOf(cutMonth) + 1;
+    $("#next-month").on("click", function(){
+        console.log("click");
+        if(month === "December"){
+            month = months[0];
+            thisyear = thisyear +1
+            
+        }else {
+            
+            month  = months[months.indexOf(month)+1];
+        }
+        
+        console.log(month);
+        renderCalendar();
+    });
 
-    console.log(months.indexOf(cutMonth) + 1);
+    $("#prev-month").on("click", function(){
+        console.log("click");
+        if(month === "January"){
+            month = months[11];
+            thisyear = thisyear - 1 
+        }else {
+            month = months[months.indexOf(month)-1];
+        }
+        renderCalendar();
+    });
+    
+    
+    
+    function daysInMonth(month, year) {
+        return new Date(year, month, 0).getDate();
+    }
 
-    var lastday = $("<li>").text(31);
-    $(".days").append(lastday);
-    for (var i = 1; i < 32; i++) {
 
+    renderCalendar();
+
+    function renderCalendar() {
+    $(".admin-month").text(month);
+    $(".year").text(thisyear);
+    $(".days").empty();
+
+    var adminMonthNum = months.indexOf(month) + 1;
+
+    var firstOfTheMonth = new Date(`${thisyear}-${adminMonthNum}-1`);
+    var dayOfTheFirst = firstOfTheMonth.getDay()
+    var monthEnd = daysInMonth(adminMonthNum, thisyear);
+
+    for(var i=0; i< dayOfTheFirst; i++){
+        var lastday = $("<li>").text("X");
+        lastday.addClass("lastDays")
+        lastday.addClass("old")
+        $(".days").append(lastday);
+    };
+    
+    for (var i = 1; i <= monthEnd; i++) {
+        
         var day = $("<li>").text(i);
         day.addClass("day");
         day.addClass("hover");
         if (i < 10) {
-            day.attr("id", "2018-" + adminMonthNum + "-0" + i);
+            day.attr("id", `${thisyear}-${adminMonthNum}-0${i}`);
         } else {
-            day.attr("id", "2018-" + adminMonthNum + "-" + i);
+            day.attr("id", `${thisyear}-${adminMonthNum}-${i}`);
         }
         var date = new Date(day.attr("id").replace(/-/g, "/"));
-        console.log(date);
+        // console.log(date);
         if (date < today) {
             day.removeClass("hover");
             day.addClass("old");
@@ -38,14 +90,14 @@ $(document).ready(function () {
 
         $(".days").append(day);
     };
-
+    }
     var selectService = JSON.parse(sessionStorage.getItem('serviceSelected'));
-    console.log(selectService);
+    // console.log(selectService);
 
     var totalPrice = sessionStorage.getItem("servicePrice");
-    console.log(totalPrice);
+    // console.log(totalPrice);
     var totalTime = sessionStorage.getItem("serviceTime");
-    console.log(totalTime);
+    // console.log(totalTime);
     var userId = sessionStorage.getItem("userId");
     // console.log(data);
     var timesArray = [];        //array that will hold the time slots available
