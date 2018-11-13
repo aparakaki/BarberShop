@@ -6,6 +6,8 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	margin: 0;
+	background-attachment: 'fixed';
+	overflow-x: hidden;
  }
 
  /* sign up block */
@@ -50,7 +52,7 @@
 	text-transform:uppercase;
 }
 .login-html .tab{
-	font-size:22px;
+	font-size:20px;
 	margin-right:15px;
 	padding-bottom:5px;
 	margin:0 15px 10px 0;
@@ -91,7 +93,7 @@
 }
 .login-form .group .label{
 	color:#aaa;
-	font-size:12px;
+	font-size:11px;
 }
 .login-form .group .button{
 	background:#1161ee;
@@ -160,3 +162,5 @@
 .tabletBackground {
 	background-color: grey;
 }
+
+
