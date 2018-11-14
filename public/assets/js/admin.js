@@ -103,29 +103,78 @@ $(document).ready(function () {
 
   $(document).on("click", "#serviceButton", function (e) {
     event.preventDefault();
-    let a = $("#newService").val();
-    let b = $("#estimatedTime").val(); // convert to string?
-    let c = $("#newPrice").val(); // convert to string?
-    let d = $("#serviceDescription").val();
-    // create an object
-    var createService = {
-      style: a,
-      time: b,
-      price: c,
-      description: d
-    };
-    // console.log(a + b + c + d);
-    // console.log("hello world", createService);
-    // post to api service route
-    $.ajax("/api/services", { type: "POST", data: createService }).then(
-      function (data) {
-        // console.log("added new services" + createService);
-        // refresh each time button submits
-        location.reload();
-        console.log("string data", data);
+    let a = $("#newService").val().trim();
+    let b = $("#estimatedTime").val().trim(); // convert to string?
+    let c = $("#newPrice").val().trim(); // convert to string?
+    let d = $("#serviceDescription").val().trim();
+    
+    validate(a, "#newService", "string");
+    validate(b, "#estimatedTime", "number");
+    validate(c, "#newPrice", "number");
+    validate(d, "#serviceDescription", "string");
+
+    if(!validate(a, "#newService", "string") ||
+      !validate(b, "#estimatedTime", "number") ||
+      !validate(c, "#newPrice", "number") ||
+      !validate(d, "#serviceDescription", "string")) {
+        $("#validation-div").append(
+          $("<div>")
+            .attr("id", "validation-text")
+            .attr("style", "color:red")
+            .text("All fields not completed or wrong input entered"));
+        
       }
-    );
+      else {
+        // create an object
+        var createService = {
+          style: a,
+          time: b,
+          price: c,
+          description: d
+        };
+        // console.log(a + b + c + d);
+        // console.log("hello world", createService);
+        // post to api service route
+        $.ajax("/api/services", { type: "POST", data: createService }).then(
+          function (data) {
+            // console.log("added new services" + createService);
+            // refresh each time button submits
+            location.reload();
+            console.log("string data", data);
+          }
+        );
+      }
   });
+
+  function validate(field, tagId, type) {
+    if($(`${tagId}`).hasClass("require-field")) {
+      $(`${tagId}`).removeClass("require-field");
+      $("#validation-text").remove();
+    }
+
+    if(field === "") {
+      $(`${tagId}`).addClass("require-field");
+      return false;
+    }
+
+    if(type === "string") {
+      console.log(parseInt(field))
+      if(!isNaN(parseInt(field))) {
+        console.log(field + "not a string")
+        $(`${tagId}`).addClass("require-field");
+        return false;
+      }
+    }
+    else { 
+      if (isNaN(parseInt(field))) {
+        $(`${tagId}`).addClass("require-field");
+        return false;
+      }
+    }
+
+    return true;
+
+  }
 
   function convertDate(inDate) {
     var newDate = inDate.split("-")[1] + "/" + inDate.split("-")[2] + "/" + inDate.split("-")[0]
@@ -182,7 +231,7 @@ $(document).ready(function () {
   $(document).on("click", "#edit-price", function () {
     var edit = {
       id: editId,
-      newPrice: parseInt($("#new-price").val())
+      newPrice: parseInt($("#new-price").val().trim())
     }
     $.ajax("/api/services/edit",
       {
@@ -195,7 +244,7 @@ $(document).ready(function () {
   });
 
 
-
+//---------------------Delete a Service--------------------
   $(document).on("click", ".del-serv", function () {
     deleteId = $(this).data("id");
     $.ajax(`/api/services/${deleteId}/0`, {type: "GET"})
@@ -231,7 +280,7 @@ $(document).ready(function () {
   });
 
 
-  //Set schedule times
+  //-------------Set schedule times--------------------
   $("#submitNewSchedule").on("click", function(event) {
     event.preventDefault();
     $("#disp-msg").empty();
@@ -243,8 +292,14 @@ $(document).ready(function () {
     var btn2 = $("input:radio[name='group2']:checked").val();
     console.log(dateIn);
     
-    if($("#checkboxIn").is(':checked') && dateIn != "") {
-      updateSchedule(dateIn, "0:0", "0:0", "am", "am");
+    if($("#checkboxIn").is(':checked')) {
+      if(dateIn != "") {
+        updateSchedule(dateIn, "0:0", "0:0", "am", "am");
+      }
+      else {
+        $("#disp-msg").empty();
+        $("#disp-msg").append($("<p>").addClass("disp-msg-alert").text("Please enter date"));
+      }
     }
     else if(dateIn === "" || startIn === "" || endIn === "" || !$("input:radio[name='group1']").is(':checked') ||!$("input:radio[name='group2']").is(':checked')) {
       $("#disp-msg").empty();
