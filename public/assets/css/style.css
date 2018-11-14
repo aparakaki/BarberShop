@@ -37,8 +37,12 @@
 	right:0;
 	bottom:0;
 	position:absolute;
-	transform:rotateY(180deg);
-	backface-visibility:hidden;
+	-webkit-transform:rotateY(180deg);
+	-webkit-backface-visibility:hidden;
+	-ms-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
+	transform: rotateY(180deg);
 	transition:all .4s linear;
 }
 .login-html .sign-in,
