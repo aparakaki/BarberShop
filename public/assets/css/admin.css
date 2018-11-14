@@ -226,3 +226,8 @@ h1 {
     color: #1061ed;
     font-weight: bold;
 }
+
+.require-field {
+    border-color: red;
+    border-width: 2px;
+}
