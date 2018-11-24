@@ -111,7 +111,7 @@ $(document).ready(function () {
         $(".your-service").append(yourServ);
     }
 
-    $(document).on("click", ".old", function () {
+    $(document).on("click touchstart", ".old", function () {
         $(".morning").empty();
         $(".afternoon").empty();
 
@@ -119,7 +119,7 @@ $(document).ready(function () {
         $(".afternoon").append("<p>").html("<h5><i class='fas fa-clock'></i> PM</h5> <br> No available Times");
     });
 
-    $(document).on("click", ".hover", function (event) {
+    $(document).on("click touchstart", ".hover", function (event) {
         event.preventDefault();
         chosenDate = $(this).attr("id");
         //make get request for time slots and post the ones that apply 

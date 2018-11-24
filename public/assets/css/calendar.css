@@ -54,7 +54,7 @@ body {
     color:black;
 }
 
-ul, .time-slots {
+ .time-slots {
     width: 90%;
     margin-right: auto;
     margin-left: auto;
@@ -64,8 +64,11 @@ ul, .time-slots {
     border: 1px solid black;
     border-radius: 5px;
     background-color: #007bff;;
-    width: 80%;
+    width: 90%;
     color: white;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 3%
 }
 
 .weekdays li {
@@ -127,6 +130,19 @@ ul, .time-slots {
 .available {
     margin-top: 10px;
     overflow: auto;
-    max-height: 50%;
+    max-height: 63%;
 }
 
+/* iphone 8 media query */
+@media only screen 
+and (max-width : 375px) {
+
+.weekdays li {
+    width: 12%;
+}
+.weekdays {
+    width: 100%;
+}
+
+
+}
