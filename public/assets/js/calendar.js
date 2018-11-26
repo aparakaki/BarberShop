@@ -128,9 +128,10 @@ $(document).ready(function () {
         $(".morning").empty();
         $(".afternoon").empty();
 
-        console.log(chosenDate);
+        console.log(`outside route ${chosenDate}`);
 
         $.get("/api/schedule/" + chosenDate, function (data) {
+            console.log("hit");
             timesArray = [];
             console.log(data);
             timesArray = getTimeSlots(sortTimeData(data));
