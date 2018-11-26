@@ -21,49 +21,49 @@ $(document).ready(function () {
 
     var upcomingAppts = [];
     //upcoming appts display
-//upcoming appts display
-function displayAppts() {
-    $.get("/api/history/" + userId + "/0", function (data) {
-        console.log(userId);
-        upcomingAppts = data;
-        for (var i = 0; i < data.length; i++) {
-            let rowTr = $("<tr>").attr("scope", "row");
-            let serTd = $("<td>");
-            let dateTd = $("<td>").text(convertDate(data[i].date));
-            let timeTd = $("<td>").text(convertTime(data[i].start));
-            let priceTd = $("<td>");
-            let btnTd = $("<td>");
+    //upcoming appts display
+    function displayAppts() {
+        $.get("/api/history/" + userId + "/0", function (data) {
+            console.log(userId);
+            upcomingAppts = data;
+            for (var i = 0; i < data.length; i++) {
+                let rowTr = $("<tr>").attr("scope", "row");
+                let serTd = $("<td>");
+                let dateTd = $("<td>").text(convertDate(data[i].date));
+                let timeTd = $("<td>").text(convertTime(data[i].start));
+                let priceTd = $("<td>");
+                let btnTd = $("<td>");
 
-            var price = 0;
-            for (let j = 0; j < data[i].Services.length; j++) {
-                price += parseInt(data[i].Services[j].price);
-                if (j > 0) {
-                    serTd.append(", " + data[i].Services[j].style)
+                var price = 0;
+                for (let j = 0; j < data[i].Services.length; j++) {
+                    price += parseInt(data[i].Services[j].price);
+                    if (j > 0) {
+                        serTd.append(", " + data[i].Services[j].style)
+                    }
+                    else {
+                        serTd.append(data[i].Services[j].style)
+                    }
                 }
-                else {
-                    serTd.append(data[i].Services[j].style)
-                }
+                priceTd.text("$" + price);
+                let cancelBtn = $("<button>").attr("id", `${i}`)
+                    .attr("data-target", "#deleteApptTitle")
+                    .attr("data-toggle", "modal")
+                    .addClass("btn btn-danger btn-default btn-sm deleteBtn")
+                    .append($("<i>").addClass("far fa-trash-alt"));
+                btnTd.append(cancelBtn);
+                $(rowTr).append(dateTd, timeTd, serTd, priceTd, btnTd);
+                $("#apptTable").append(rowTr);
             }
-            priceTd.text("$" + price);
-            let cancelBtn = $("<button>").attr("id", `${i}`)
-                .attr("data-target", "#deleteApptTitle")
-                .attr("data-toggle", "modal")
-                .addClass("btn btn-danger btn-default btn-sm deleteBtn")
-                .append($("<i>").addClass("far fa-trash-alt"));
-            btnTd.append(cancelBtn);
-            $(rowTr).append(dateTd, timeTd, serTd, priceTd, btnTd);
-            $("#apptTable").append(rowTr);
-        }
 
-    });
+        });
 
-    
 
-    $.get("/api/history/" + userId + "/1", function (data) {
-        // console.log(data);
-        for (var i = 0; i < data.length; i++) {
-            for (var j = 0; j < data[i].Services.length; j++) {
-                $("#historyTable").append(`
+
+        $.get("/api/history/" + userId + "/1", function (data) {
+            // console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                for (var j = 0; j < data[i].Services.length; j++) {
+                    $("#historyTable").append(`
                 <tr>
                 <td>${convertDate(data[i].date)}</td>
                 <td>${data[i].Services[j].style}</td>
@@ -72,10 +72,10 @@ function displayAppts() {
                 </tr>
                 `)
 
+                }
             }
-        }
-    });
-}
+        });
+    }
     var apptId;
 
     $(document).on("click", ".deleteBtn", function (event) {
@@ -130,4 +130,13 @@ function displayAppts() {
     $('.carousel').carousel({
         interval: 4000
     })
+
+    $(window).bind('scroll', function () {
+        if ($(window).scrollTop() > 250) {
+            $('#rowArrow').hide();
+        }
+        else {
+            $('#rowArrow').show();
+        }
+    });
 });

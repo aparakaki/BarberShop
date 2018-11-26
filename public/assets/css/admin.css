@@ -177,13 +177,7 @@ h1 {
 #blob {
     background:black; 
     height: 400px;
-}
-
-#slogan {
-    color:white; 
-    text-align: center; 
-    margin-top: 180px;
-    font-family: 'Oswald', sans-serif;
+    width: 100vw;
 }
 
 #barberPromise {
@@ -230,4 +224,59 @@ h1 {
 .require-field {
     border-color: red;
     border-width: 2px;
+}
+
+@media(min-width: 1000px) {
+    #arrow {
+        position: relative;
+        font-size: 75px;
+        margin-top: 50px;
+        transform: rotate(-90deg);
+        color: white;
+        animation: bounceArrow 1s infinite;
+    }
+
+    #rowArrow {
+        margin-top: -195px;
+    }
+
+    .frontCarousel{
+        height: 95vh;
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    nav {
+        z-index: 1;
+    }
+
+    #slogan {
+        color:white; 
+        text-align: center; 
+        margin-top: 190px;
+        font-family: 'Oswald', sans-serif;
+    }
+}
+
+@keyframes bounceArrow {
+    0%{top: 0px;}
+    50%{top: 20px;}
+    100%{top: 0px;}
+}
+@media(max-width: 999px) {
+    #arrow {
+        position: relative;
+        font-size: 0px;
+        transform: rotate(-90deg);
+        color: white;
+        margin-top: -1px;
+        animation: bounceArrow 1s infinite;
+    }
+
+    #slogan {
+        color:white; 
+        text-align: center; 
+        margin-top: 190px;
+        font-family: 'Oswald', sans-serif;
+    }
 }
