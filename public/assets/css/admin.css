@@ -182,7 +182,7 @@ h1 {
 #slogan {
     color:white; 
     text-align: center; 
-    margin-top: 180px;
+    margin-top: 190px;
     font-family: 'Oswald', sans-serif;
 }
 
@@ -230,4 +230,49 @@ h1 {
 .require-field {
     border-color: red;
     border-width: 2px;
+}
+
+#clouds {
+    width: 100%;
+}
+
+@media(min-width: 1000px) {
+    #arrow {
+        position: relative;
+        font-size: 75px;
+        margin-top: 50px;
+        transform: rotate(-90deg);
+        color: white;
+        animation: bounceArrow 1s infinite;
+    }
+
+    #rowArrow {
+        margin-top: -195px;
+    }
+
+    #rowArrowPlaceHolder {
+        margin-top: -30px;
+    }
+
+    .frontCarousel{
+        height: 95vh;
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    nav {
+        z-index: 1;
+    }
+}
+
+@keyframes bounceArrow {
+    0%{top: 0px;}
+    50%{top: 20px;}
+    100%{top: 0px;}
+}
+@media(max-width: 999px) {
+    #arrow {
+        font-size: 0px;
+        margin-top: -1px;
+    }
 }
