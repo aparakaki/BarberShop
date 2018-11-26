@@ -180,6 +180,13 @@ h1 {
     width: 100vw;
 }
 
+#slogan {
+    color:white; 
+    text-align: center; 
+    margin-top: 190px;
+    font-family: 'Oswald', sans-serif;
+}
+
 #barberPromise {
     margin-top: 65px;
     font-family: 'Oswald', sans-serif;
@@ -249,13 +256,6 @@ h1 {
     nav {
         z-index: 1;
     }
-
-    #slogan {
-        color:white; 
-        text-align: center; 
-        margin-top: 190px;
-        font-family: 'Oswald', sans-serif;
-    }
 }
 
 @keyframes bounceArrow {
@@ -271,12 +271,5 @@ h1 {
         color: white;
         margin-top: -1px;
         animation: bounceArrow 1s infinite;
-    }
-
-    #slogan {
-        color:white; 
-        text-align: center; 
-        margin-top: 190px;
-        font-family: 'Oswald', sans-serif;
     }
 }
