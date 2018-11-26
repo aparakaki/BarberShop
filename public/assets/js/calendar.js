@@ -132,7 +132,7 @@ $(document).ready(function () {
 
         $.get("/api/schedule/" + chosenDate, function (data) {
             timesArray = [];
-            // console.log(data);
+            console.log(data);
             timesArray = getTimeSlots(sortTimeData(data));
             console.log(timesArray);
             if (timesArray.length === 0) {
