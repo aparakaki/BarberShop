@@ -134,9 +134,11 @@ $(document).ready(function () {
     $(window).bind('scroll', function () {
         if ($(window).scrollTop() > 250) {
             $('#rowArrow').hide();
+            $('#rowArrowPlaceHolder').show();
         }
         else {
             $('#rowArrow').show();
+            $('#rowArrowPlaceHolder').hide();
         }
     });
 });

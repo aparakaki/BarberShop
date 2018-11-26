@@ -247,6 +247,10 @@ h1 {
         margin-top: -195px;
     }
 
+    #rowArrowPlaceHolder {
+        margin-top: -30px;
+    }
+
     .frontCarousel{
         height: 95vh;
         width: 100%;
@@ -265,11 +269,7 @@ h1 {
 }
 @media(max-width: 999px) {
     #arrow {
-        position: relative;
         font-size: 0px;
-        transform: rotate(-90deg);
-        color: white;
         margin-top: -1px;
-        animation: bounceArrow 1s infinite;
     }
 }
