@@ -8,6 +8,7 @@ module.exports = function(app){
         db.Appointment.findAll({
             where: {date: req.params.date}
         }).then(function(data){
+            console.log(data);
             res.json(data);
         })
     });
