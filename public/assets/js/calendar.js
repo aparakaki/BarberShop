@@ -301,8 +301,8 @@ $(document).ready(function () {
     function getTimeSlots(appointments) {
         var dateEvents = appointments.map(function (event) {
             return {
-                start: new Date('1970-01-01 ' + event.start),
-                end: new Date('1970-01-01 ' + event.end)
+                start: new Date('1970/01/01 ' + event.start),
+                end: new Date('1970/01/01 ' + event.end)
             };
         });
 
