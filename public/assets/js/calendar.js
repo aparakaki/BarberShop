@@ -326,7 +326,7 @@ $(document).ready(function () {
 
             prev = current;
         }
-
+        console.log(`time slots ${timeSlots}`)
         var availTimes = [];
         for (let j = 0; j < timeSlots.length; j++) {
             let temp = timeSlots[j].start;
@@ -335,6 +335,7 @@ $(document).ready(function () {
                 temp = new Date(temp.getTime() + requiredGap);
             }
         }
+        console.log(`available times ${availTimes}`)
         return availTimes;
     };
 
