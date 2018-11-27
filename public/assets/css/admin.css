@@ -236,7 +236,7 @@ h1 {
     width: 100%;
 }
 
-@media(min-width: 1000px) {
+@media(min-width: 681px) {
     #arrow {
         position: relative;
         font-size: 75px;
@@ -270,7 +270,7 @@ h1 {
     50%{top: 20px;}
     100%{top: 0px;}
 }
-@media(max-width: 999px) {
+@media(max-width: 680px) {
     #arrow {
         font-size: 0px;
         margin-top: -1px;
