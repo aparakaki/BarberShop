@@ -141,4 +141,19 @@ $(document).ready(function () {
             $('#rowArrowPlaceHolder').hide();
         }
     });
+
+    // onscroll function for css animation
+ 
+    $(window).scroll(function(){
+        if($(this).scrollTop()>= 500){           
+            $('#slogan').addClass('animateIt');
+            $('#barberPromise').addClass('animateIt');
+
+
+        }
+    });
+   
+
 });
+
+
