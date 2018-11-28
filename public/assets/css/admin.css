@@ -197,6 +197,8 @@ h1 {
     -webkit-animation: moveInLeft 4s ease-out;
 }
 
+
+
 #slogan {
     color:white; 
     text-align: center; 
@@ -333,4 +335,50 @@ h1 {
         -ms-transform: translate(0);
         -o-transform: translate(0);
     }
+}
+
+
+
+/* link defines what button it is and visited is the state after its been clicked */
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    /*takeoutthehyperlinklinebeneath*/text-decoration: none;
+    /*iftheresonlytwoitsleftandright*//*ifitsfournumbersthenitmeansthetoprightbuttomleft*/padding: 15px 20px;
+    display: inline-block;
+    /*shapeedgesintocircle*/
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+
+    transition:all .2s;
+    -webkit-transition:all .2s;
+    -moz-transition:all .2s;
+    -ms-transition:all .2s;
+    -o-transition:all .2s;
+}
+
+.btn:hover {
+    transform:translateY(-3px);
+    -webkit-transform:translateY(-3px);
+    -moz-transform:translateY(-3px);
+    -ms-transform:translateY(-3px);
+    -o-transform:translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+}
+.btn:active{
+    transform: translateY(-1px);
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
 }
