@@ -193,8 +193,8 @@ h1 {
 }
 
 .animateIt {
-    animation: moveInLeft 5s ease-out;
-    -webkit-animation: moveInLeft 5s ease-out;
+    animation: moveInLeft 4s ease-out;
+    -webkit-animation: moveInLeft 4s ease-out;
 }
 
 #slogan {
