@@ -187,7 +187,7 @@ h1 {
 
 #biancaAndAnaWrapper {
     height: 100%;
-    width: 100;
+    width: 100%;
     background-image: linear-gradient(
         to right bottom, 
         rgba(42, 48, 41, 0.8), 
@@ -197,6 +197,7 @@ h1 {
     background-position: top;
     position: relative;
     margin: 0;
+    padding-bottom: 30px;
 }
 
 #blob {
