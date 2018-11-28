@@ -1,7 +1,3 @@
-*{
-    padding:0;
-    margin:0;
-  }
 
 
 #wrapper {
@@ -155,7 +151,6 @@
 } 
 
 
-
 .bgShop {
     overflow-x: hidden;
     background: 
@@ -183,8 +178,6 @@ h1 {
     font-family: 'Oswald', sans-serif;
 }
 
-
-
 #biancaAndAnaWrapper {
     height: 100%;
     width: 100%;
@@ -210,8 +203,6 @@ h1 {
     -webkit-animation: moveInLeft 4s ease-out;
 }
 
-
-
 #slogan {
     color:white; 
     text-align: center; 
@@ -220,16 +211,12 @@ h1 {
 
 }
 
-
 #barberPromise {
     margin-top: 65px;
     font-family: 'Oswald', sans-serif;
     font-size: 26px;
       
 }
-
-
-
 
 .container {
     width: auto;
@@ -278,7 +265,22 @@ h1 {
     width: 100%;
 }
 
-@media(min-width: 1000px) {
+@media(max-width: 991px) {
+    .mission {
+        text-align: center;
+    }
+}
+
+@media(max-width: 320px) {
+    #hairClipper {
+        margin-left: -40px;
+    }
+    #hairClipperRow {
+        overflow: hidden;
+    }
+}
+
+@media(min-width: 681px) {
     #arrow {
         position: relative;
         font-size: 75px;
@@ -286,8 +288,7 @@ h1 {
         transform: rotate(-90deg);
         color: white;
         animation: bounceArrow 1s infinite;
-        -webkit-animation: bounceArrow 1s infinite;
-}
+    }
 
     #rowArrow {
         margin-top: -195px;
@@ -301,11 +302,17 @@ h1 {
         height: 95vh;
         width: 100%;
         object-fit: cover;
-
     }
     
     nav {
         z-index: 1;
+    }
+}
+
+@media(max-width: 680px) {
+    #arrow {
+        font-size: 0px;
+        margin-top: -1px;
     }
 }
 
@@ -314,13 +321,6 @@ h1 {
     50%{top: 20px;}
     100%{top: 0px;}
 }
-@media(max-width: 999px) {
-    #arrow {
-        font-size: 0px;
-        margin-top: -1px;
-    }
-}
-
 
 @keyframes moveInLeft {
     0% {
@@ -350,14 +350,14 @@ h1 {
     }
 }
 
-
-
 /* link defines what button it is and visited is the state after its been clicked */
 .btn:link,
 .btn:visited {
     text-transform: uppercase;
-    /*takeoutthehyperlinklinebeneath*/text-decoration: none;
-    /*iftheresonlytwoitsleftandright*//*ifitsfournumbersthenitmeansthetoprightbuttomleft*/padding: 15px 20px;
+    /*takeoutthehyperlinklinebeneath*/
+    text-decoration: none;
+    /*iftheresonlytwoitsleftandright*//*ifitsfournumbersthenitmeansthetoprightbuttomleft*/
+    padding: 15px 20px;
     display: inline-block;
     /*shapeedgesintocircle*/
     border-radius: 100px;
