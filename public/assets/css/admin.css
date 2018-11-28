@@ -1,3 +1,9 @@
+*{
+    padding:0;
+    margin:0;
+  }
+
+
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -9,6 +15,7 @@
 #wrapper.toggled {
     padding-left: 250px;
 }
+
 
 #sidebar-wrapper {
     z-index: 1000;
@@ -147,6 +154,8 @@
     margin-right: 30px;
 } 
 
+
+
 .bgShop {
     overflow-x: hidden;
     background: 
@@ -174,8 +183,11 @@ h1 {
     font-family: 'Oswald', sans-serif;
 }
 
+
+
 #biancaAndAnaWrapper {
     height: 100%;
+    width: 100;
     background-image: linear-gradient(
         to right bottom, 
         rgba(42, 48, 41, 0.8), 
@@ -184,7 +196,7 @@ h1 {
     background-size: cover;
     background-position: top;
     position: relative;
-    /* clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); */
+    margin: 0;
 }
 
 #blob {
