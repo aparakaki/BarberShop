@@ -141,4 +141,12 @@ $(document).ready(function () {
             $('#rowArrowPlaceHolder').hide();
         }
     });
+
+
+    $(window).scroll(function(){
+        if($(this).scrollTop()>= 500){           
+            $('#slogan').addClass('animateIt');
+            $('#barberPromise').addClass('animateIt');
+        }
+    });
 });

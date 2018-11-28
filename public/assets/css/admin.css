@@ -174,9 +174,27 @@ h1 {
     font-family: 'Oswald', sans-serif;
 }
 
+#biancaAndAnaWrapper {
+    height: 100%;
+    background-image: linear-gradient(
+        to right bottom, 
+        rgba(42, 48, 41, 0.8), 
+        rgba(0, 0, 0, 0.8)), 
+        url(../img/chair2.jpg );
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    /* clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); */
+}
+
 #blob {
     background:black; 
     height: 400px;
+}
+
+.animateIt {
+    animation: moveInLeft 4s ease-out;
+    -webkit-animation: moveInLeft 4s ease-out;
 }
 
 #slogan {
@@ -184,13 +202,19 @@ h1 {
     text-align: center; 
     margin-top: 190px;
     font-family: 'Oswald', sans-serif;
+
 }
+
 
 #barberPromise {
     margin-top: 65px;
     font-family: 'Oswald', sans-serif;
     font-size: 26px;
+      
 }
+
+
+
 
 .container {
     width: auto;
@@ -199,6 +223,7 @@ h1 {
     position: relative;
     overflow: auto;
     padding: 0px;
+
 }
 
 .container.carousel {
@@ -206,10 +231,12 @@ h1 {
     top: 0;
     left: 0;
     width: 100%;
+
 }
 
 .marginAdjustment {
     margin-top: 50px;
+    
 }
 
 .adminSolid{
@@ -236,22 +263,7 @@ h1 {
     width: 100%;
 }
 
-@media(max-width: 991px) {
-    .mission {
-        text-align: center;
-    }
-}
-
-@media(max-width: 320px) {
-    #hairClipper {
-        margin-left: -40px;
-    }
-    #hairClipperRow {
-        overflow: hidden;
-    }
-}
-
-@media(min-width: 681px) {
+@media(min-width: 1000px) {
     #arrow {
         position: relative;
         font-size: 75px;
@@ -259,7 +271,8 @@ h1 {
         transform: rotate(-90deg);
         color: white;
         animation: bounceArrow 1s infinite;
-    }
+        -webkit-animation: bounceArrow 1s infinite;
+}
 
     #rowArrow {
         margin-top: -195px;
@@ -273,6 +286,7 @@ h1 {
         height: 95vh;
         width: 100%;
         object-fit: cover;
+
     }
     
     nav {
@@ -285,9 +299,38 @@ h1 {
     50%{top: 20px;}
     100%{top: 0px;}
 }
-@media(max-width: 680px) {
+@media(max-width: 999px) {
     #arrow {
         font-size: 0px;
         margin-top: -1px;
+    }
+}
+
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX( -100px);
+        -webkit-transform: translateX( -100px);
+        -moz-transform: translateX( -100px);
+        -ms-transform: translateX( -100px);
+        -o-transform: translateX( -100px);
+    }
+
+    80% {
+        transform: translateX( 10px);
+        -webkit-transform: translateX( 10px);
+        -moz-transform: translateX( 10px);
+        -ms-transform: translateX( 10px);
+        -o-transform: translateX( 10px);
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translate(0);    
+        -webkit-transform: translate(0);
+        -moz-transform: translate(0);
+        -ms-transform: translate(0);
+        -o-transform: translate(0);
     }
 }
